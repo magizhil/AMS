@@ -1,0 +1,52 @@
+﻿@model IEnumerable<AMS.Models.CntFileInfo>
+
+@{
+    ViewBag.Title = "FileView";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="w3-container">
+    <header class="w3-container w3-card-4  w3-teal">
+        <h3>Attachment File Informaiton</h3>
+    </header>
+    <div class="w3-row">
+
+        <div class="w3-border">
+
+            <div class="w3-container w3-responsive">
+
+                <table class="w3-table w3-striped w3-border" id="HardView">
+                    <thead>
+                        <tr class="w3-blue">
+                            <th>
+                                File ID
+                            </th>
+                            <th>
+                                FileName
+                            </th>
+                            <th>Download</th>
+                        </tr>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.fileId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.filename)
+                                </td>
+                                @*<td>
+                                        @Html.DisplayFor(modelItem => item.filepath)
+                                    </td>*@
+                                <td>
+                                    @Html.ActionLink("Download", "Download", new { FileName = item.filepath },new { @class = "w3-btn w3-blue" })
+                                </td>
+                            </tr>
+                        }
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

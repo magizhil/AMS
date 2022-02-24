@@ -1,0 +1,104 @@
+﻿@model AMS.Models.CntDetails
+
+@{
+    ViewBag.Title = "Invoice Upload";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+@*<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery-1.8.0.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script type="text/javascript" src="~/Js/Validation.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>*@
+<div class="w3-container">
+    <div class="w3-container">
+        <div class="w3-col l4"><p></p></div>
+        <div class="w3-col l4">
+            <form id="astinv">
+                <header class="w3-container w3-card-4 w3-theme w3-teal">
+                    <h3>Contract Document Upload</h3>
+                </header>
+                
+                <div class="w3-col l12">
+                    <p>
+                        <label class="w3-text-teal">Asset Tag</label>
+                    </p>
+                    <p>
+                        @Html.TextBoxFor(m => m.CNTNUMBER, new { @class = "w3-input", @id = "CNTNUMBER" })
+                    </p>
+                </div>
+                <div class="w3-col l12">
+                    <p>
+                        <label class="w3-text-teal">Upload Path</label>
+                    </p>
+                    <p>
+                        <input type="file" id="UploadPdf" />
+                        <span id="errinvpath" class="w3-text-red"></span>
+                    </p>
+                </div>
+            </form>
+            @Html.ActionLink("Back to List", "ContractView", "",new { @class = "w3-btn w3-blue" })
+        </div>
+        <div class="w3-col l4"><p></p></div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        var tot;
+
+        $("#UploadPdf").change(function () {
+            if ($("#CNTNUMBER").val().trim() !== "") {
+                var pdfvalue = $("#CNTNUMBER").val().trim();
+                var data = new FormData();
+                var files = $("#UploadPdf").get(0).files;
+                var ext = $("#UploadPdf").val().split('.').pop().toLowerCase();
+                var flname = $("#UploadPdf")[0].files[0];
+                var filesize = ($("#UploadPdf")[0].files[0].size / 1024);
+                //var filenameval = '/' + pdfvalue + '\\' + files[0];
+                if (ext === "pdf") {
+                    if (filesize < 2048) {
+                        if (files.length > 0) {
+                            data.append("MyImages", files[0],  pdfvalue + '/' + flname.name);
+                            //data.append(files[0], filenameval);
+                            //data.append("filenam", empcodevalue);
+                        }
+
+                        $.ajax({
+                            url: "/Contract/UploadFile",
+                            type: "POST",
+                            processData: false,
+                            contentType: false,
+                            data: data,
+                            success: function (data) {
+                                //code after success
+                                //  $("#INVPATH").val(data);
+                                alert("Document Upload Done");
+                            },
+                            error: function (er) {
+                                alert(er);
+                            }
+
+                        });
+                    }
+                    else {
+                        alert(filesize);
+                        alert("File size is greater than 2 MB");
+                    }
+                }
+                else {
+                    alert("PDF only Allowed");
+                }
+            }
+            else {
+                alert("Kindly fill the Asset Tag before choose the pdf")
+            }
+        });
+
+
+    });
+
+</script>

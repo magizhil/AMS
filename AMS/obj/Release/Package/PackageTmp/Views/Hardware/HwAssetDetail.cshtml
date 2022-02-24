@@ -1,0 +1,524 @@
+﻿@model AMS.Models.HwAsset
+
+@{
+    ViewBag.Title = "HwAssetDetail";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<script type="text/javascript" src="~/Scripts/jquery.min.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery-1.8.0.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script type="text/javascript" src="~/Js/Validation.js"></script>
+<script src="~/Js/jquery-1.12.4.js"></script>
+<script src="~/Js/jquery-ui.js"></script>
+@*<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery-1.8.0.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script type="text/javascript" src="~/Js/Validation.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>*@
+
+<div class="w3-container">
+    <header class="w3-container w3-card-4 w3-theme w3-teal">
+        <h3>Hardware Details</h3>
+    </header>
+    <div class="w3-container  w3-border">
+        <form id="hardware">
+            <div class="w3-row-padding">
+                <div class="w3-col l3">
+                    <p>
+                        <label class="w3-text-teal">Asset Tag</label>
+                    </p>
+                    <p>
+                        @Html.TextBoxFor(m => m.ASSETTAG, new { @id = "ASSETTAG", @style = "width:200px;text-transform:uppercase;border:0px 0px 1px 0px;" })
+                        &nbsp;&nbsp;
+                        <a onclick="FindHw();"><img src="~/Images/search.png" width="20" height="20" /></a>
+                        &nbsp;&nbsp;
+                        <a onclick="NewClick();"><img src="~/Images/new.png" width="20" height="20" /></a>
+                    </p>
+                    <p style="height:63px">
+                        <label class="w3-text-teal">Asset Type</label>
+                        <br />
+                        @Html.RadioButtonFor(m => m.ASSETTYPE, "1", new { @checked = "", @id = "ASSETTYPE1" }) &nbsp;&nbsp; <label>Master</label>&nbsp;&nbsp;
+
+                        @Html.RadioButtonFor(m => m.ASSETTYPE, "2", new { @id = "ASSETTYPE2" }) &nbsp;&nbsp; <label>Component</label>
+                    </p>
+                    <p>
+                        <label class="w3-text-teal">Category Type</label>
+                        @Html.DropDownListFor(m => m.CATGNAME, new SelectList(ViewBag.hwcatg, "CATGNAME", "CATGDESC"), "--- Select ---", new { @class = "w3-input", @id = "CATGNAME" })
+                        <span id="catgtype" class="w3-text-red"></span>
+                    </p>
+                    <p>
+                        <label class="w3-text-teal">Brand</label>
+                        @Html.TextBoxFor(m => m.BRAND, new { @class = "w3-input", @id = "BRAND" })
+                        <span id="hwbrand" class="w3-text-red"></span>
+                    </p>
+                    <p>
+                        <label class="w3-text-teal">Model Name</label>
+                        @Html.TextBoxFor(m => m.MDLNAME, new { @class = "w3-input", @id = "MDLNAME" })
+                        <span id="hwmdlname" class="w3-text-red"></span>
+                    </p>
+                    <p style="height:63px">
+                        <label class="w3-text-teal">Model No</label>
+                        @Html.TextBoxFor(m => m.MDLNO, new { @class = "w3-input", @id = "MDLNO" })
+                        <span id="hwmdlno" class="w3-text-red"></span>
+                    </p>
+                    <p style="height:63px">
+                        <label class="w3-text-teal">Serialized Item</label>
+                        <br />
+                        @Html.RadioButtonFor(m => m.SERIALIZED, "1", new { @checked = "", @id = "SERIALIZED1", @name = "SERIALIZED" }) &nbsp;&nbsp; <label>Yes</label>&nbsp;&nbsp;
+
+                        @Html.RadioButtonFor(m => m.SERIALIZED, "0", new { @id = "SERIALIZED2", @name = "SERIALIZED" }) &nbsp;&nbsp; <label>No</label>
+                    </p>
+                    <p style="height:63px">
+                        <label class="w3-text-teal">Serial Number</label>
+                        @Html.TextBoxFor(m => m.SLNO, new { @class = "w3-input", @id = "SLNO" })
+                        <span id="hwslno" class="w3-text-red"></span>
+                    </p>
+
+                </div>
+                <div class="w3-col l3 ">
+                    <p>
+                        <label class="w3-text-teal">Service Tag Number</label>
+                        @Html.TextBoxFor(m => m.SERTTAG, new { @class = "w3-input", @id = "SERTTAG" })
+                        <span id="hwsertag" class="w3-text-red"></span>
+                    </p>
+
+                    <p>
+                        <label class="w3-text-teal">HDD</label>
+                        @Html.TextBoxFor(m => m.HDD, new { @class = "w3-input", @id = "HDD" })
+                        <span id="hwhdd" class="w3-text-red"></span>
+                    </p>
+                    <p>
+                        <label class="w3-text-teal">RAM</label>
+                        @Html.TextBoxFor(m => m.RAM, new { @class = "w3-input", @id = "RAM" })
+                        <span id="hwram" class="w3-text-red"></span>
+                    </p>
+                    <p>
+                        <label class="w3-text-teal">Processor</label>
+                        @Html.TextBoxFor(m => m.PROCESSOR, new { @class = "w3-input", @id = "PROCESSOR" })
+                        <span id="hwprocess" class="w3-text-red"></span>
+                    </p>
+
+                    <p style="height:63px">
+                        <label class="w3-text-teal">Quantity</label>
+                        @Html.TextBoxFor(m => m.QTY, new { @class = "w3-input", @id = "QTY", @type = "number" })
+                        <span id="hwqty" class="w3-text-red"></span>
+                    </p>
+                    <p>
+                        <label class="w3-text-teal">Configuration</label>
+                        @Html.TextAreaFor(m => m.CONFIGURATION, new { @class = "w3-input", @style = "height:117px;", @id = "CONFIGURATION" })
+                        <span id="hwconfig" class="w3-text-red"></span>
+                    </p>
+
+                    <p class="w3-right">
+                        <button type="button" class="w3-button w3-blue w3-round w3-hover-teal" id="addbtn">Submit</button>
+                        
+                    </p>
+                </div>
+                <div class="w3-col l3 ">
+                    <p>
+                        <label class="w3-text-teal">Geo Location</label>
+                        @Html.TextBoxFor(m => m.GEOLOC, new { @class = "w3-input", @id = "GEOLOC" })
+                        <span id="hwgeoloc" class="w3-text-red"></span>
+                    </p>
+                    <p>
+                        <label class="w3-text-teal">Physical Location</label>
+                        @Html.TextBoxFor(m => m.PHLOC, new { @class = "w3-input", @id = "PHLOC" })
+                        <span id="hwphloc" class="w3-text-red"></span>
+                    </p>
+                    <p>
+                        <label class="w3-text-teal">Asset Number</label>
+                        @Html.TextBoxFor(m => m.ASSTNO, new { @class = "w3-input", @id = "ASSTNO" })
+                        <span id="hwasstno" class="w3-text-red"></span>
+                    </p>
+                    <p>
+                        <label class="w3-text-teal">Asset Status</label>
+                        @Html.TextBoxFor(m => m.ASSTSTS, new { @class = "w3-input", @id = "ASSTSTS" })
+                        <span id="hwasststs" class="w3-text-red"></span>
+                    </p>
+                    <p>
+                        <label class="w3-text-teal">Asset Value</label>
+                        @Html.TextBoxFor(m => m.ASSETVAL, new { @class = "w3-input", @id = "ASSETVAL", @type = "number" })
+                        <span id="hwastval" class="w3-text-red"></span>
+                    </p>
+                    <p>
+                        <label class="w3-text-teal">Accessories</label>
+                        @Html.TextAreaFor(m => m.ACCESSORIES, new { @class = "w3-input", @style = "height:117px;", @id = "ACCESSORIES" })
+                        <span id="hwaccess" class="w3-text-red"></span>
+                    </p>
+                </div>
+                <div class="w3-col l3 ">
+                    <p>
+                        <label class="w3-text-teal">Vendor</label>
+                        @Html.DropDownListFor(m => m.VENDID, new SelectList(ViewBag.vendor, "VENDID", "VENDNAME"), "--- Select ---", new { @class = "w3-input", @id = "VENDID" })
+                        <span id="hwvendor" class="w3-text-red"></span>
+                    </p>
+                    <p style="height:63px">
+                        <label class="w3-text-teal">Purchase Date</label>
+                        @Html.TextBoxFor(m => m.PODATE, new { @class = "w3-input datepicker", @id = "PODATE" })
+                        <span id="hwpodate" class="w3-text-red"></span>
+                    </p>
+                    <p>
+                        <label class="w3-text-teal">Invoice Number</label>
+                        @Html.TextBoxFor(m => m.INVOICENUMBER, new { @class = "w3-input", @id = "INVOICENUMBER" })
+                        <span id="hwinvno" class="w3-text-red"></span>
+                    </p>
+                    <p>
+                        <label class="w3-text-teal">Warranty Information</label>
+                        @Html.TextBoxFor(m => m.WARINFO, new { @class = "w3-input", @id = "WARINFO" })
+                        <span id="hwwarinfo" class="w3-text-red"></span>
+                    </p>
+                    <p>
+                        <label class="w3-text-teal">Warranty Expiration</label>
+                        @Html.TextBoxFor(m => m.WAREXP, new { @class = "w3-input datepicker", @id = "WAREXP" })
+                        <span id="hwwarexp" class="w3-text-red"></span>
+                    </p>
+                    <p>
+                        <label class="w3-text-teal">Printer Monthly Duty Cycle</label>
+                        @Html.TextBoxFor(m => m.PRTMDCYC, new { @class = "w3-input", @id = "PRTMDCYC" })
+                        <span id="hwprinterm" class="w3-text-red"></span>
+                    </p>
+                    <p>
+                        <label class="w3-text-teal">Printer Lifetime Duty Cycle</label>
+                        @Html.TextBoxFor(m => m.PRTLTDCYC, new { @class = "w3-input", @id = "PRTLTDCYC" })
+                        <span id="hwprinterl" class="w3-text-red"></span>
+                    </p>
+                    <p>
+                        <label class="w3-text-teal">Last Modified At</label>
+                        @Html.TextBoxFor(m => m.DATELASTMN, new { @class = "w3-input", @id = "DATELASTMN", @style = "background-color:#e6e6e6;", @readonly = "true" })
+                    </p>
+                </div>
+
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        initdatepicker();
+        var totval = 0;
+        radiocheck();
+        $("#ASSETTAG").change(function () {
+            selecthardCode = $("#ASSETTAG").val().trim();
+            getHardwareTable();
+
+        });
+
+        $("#CATGNAME").change(function () {
+            if ($("#CATGNAME").val() === '') {
+                $("#catgtype").html("Select Category Type").show();
+            }
+            else {
+                $("#catgtype").html("Select Category Type").hide();
+            }
+        });
+        $("#BRAND").change(function () {
+
+            if ($("#BRAND").val() === '') {
+
+                $("#hwbrand").html("Brand name required").show();
+            }
+            else {
+                $("#hwbrand").html("Brand name required").hide();
+            }
+        });
+        $("#MDLNAME").change(function () {
+            if ($("#MDLNAME").val() === '') {
+                $("#hwmdlname").html("Model name required").show();
+            }
+            else {
+                $("#hwmdlname").html("Model name required").hide();
+            }
+        });
+        $("#SERIALIZED1, #SERIALIZED2").change(function () {
+            radiocheck();
+        });
+        $("#SLNO").change(function () {
+            if ($("#SLNO").val() === '') {
+                $("#hwslno").html("Serial no required").show();
+            }
+            else {
+                $("#hwslno").html("Serial no required").hide();
+                selectSlnoCode = $("#SLNO").val().trim();
+                getSlnoInfo();
+            }
+        });
+        $("#QTY").change(function () {
+            if ($("#QTY").val === '') {
+                $("#hwqty").html("Quantity required").show();
+            }
+            else {
+                $("#hwqty").html("Quantity required").hide();
+            }
+        });
+        $("#GEOLOC").change(function () {
+            if ($("#GEOLOC").val() === '') {
+                $("#hwgeoloc").html("Model name required").show();
+            }
+            else {
+                $("#hwgeoloc").html("Model name required").hide();
+            }
+        });
+        $("#VENDID").change(function () {
+            if ($("#VENDID").val() === '') {
+                $("#hwvendor").html("Vendor Name required").show();
+            }
+            else {
+                $("#hwvendor").html("Vendor Name required").hide();
+            }
+        });
+        $("#INVOICENUMBER").change(function () {
+            if ($("#INVOICENUMBER").val() === '') {
+                $("#hwinvno").html("Invoice Number required").show();
+            }
+            else {
+                $("#hwinvno").html("Invoice Number required").hide();
+            }
+        });
+        $("#ASSETVAL").change(function () {
+            if ($("#ASSETVAL").val() === '') {
+                $("#hwastval").html("Asset Value required").show();
+            }
+            else {
+                $("#hwastval").html("Asset Value required").hide();
+            }
+        });
+        function reqval() {
+            var a, b, c, d, e, f, g, h, i;
+
+            if ($("#CATGNAME").val() === '') {
+                $("#catgtype").html("Select Category Type").show();
+                a = 0;
+            }
+            else {
+                $("#catgtype").html("Select Category Type").hide();
+                a = 1;
+            }
+
+            if ($("#BRAND").val() === '') {
+
+                $("#hwbrand").html("Brand name required").show();
+                b = 0;
+            }
+            else {
+                $("#hwbrand").html("Brand name required").hide();
+                b = 1;
+            }
+
+            if ($("#MDLNAME").val() === '') {
+                $("#hwmdlname").html("Model name required").show();
+                c = 0;
+            }
+            else {
+                $("#hwmdlname").html("Model name required").hide();
+                c = 1;
+            }
+
+            if ($("#SLNO").val() === '' && $("#SERIALIZED1").is(':checked')) {
+                $("#hwslno").html("Serial no required").show();
+                d = 0;
+            }
+            else {
+                $("#hwslno").html("Serial no required").hide();
+                //selectSlnoCode = $("#SLNO").val().trim();
+                //getSlnoInfo();
+                d = 1;
+            }
+            if ($("#QTY").val() === '' && $("#SERIALIZED2").is(':checked')) {
+                $("#hwqty").html("Serial no required").show();
+                i = 0;
+            }
+            else {
+                $("#hwqty").html("Serial no required").hide();
+                //selectSlnoCode = $("#SLNO").val().trim();
+                //getSlnoInfo();
+                i = 1;
+            }
+            if ($("#GEOLOC").val() === '') {
+                $("#hwgeoloc").html("Geo Location required").show();
+                e = 0;
+            }
+            else {
+                $("#hwgeoloc").html("Geo Location required").hide();
+                e = 1;
+            }
+
+
+            if ($("#VENDID").val() === '') {
+                $("#hwvendor").html("Vendor Name required").show();
+                f = 0;
+            }
+            else {
+                $("#hwvendor").html("Vendor Name required").hide();
+                f = 1;
+            }
+
+
+            if ($("#INVOICENUMBER").val() === '') {
+                $("#hwinvno").html("Invoice Number required").show();
+                g = 0;
+            }
+            else {
+                $("#hwinvno").html("Invoice Number required").hide();
+                g = 1;
+            }
+
+
+            if ($("#ASSETVAL").val() === '') {
+                $("#hwastval").html("Asset Value required").show();
+                h = 0;
+            }
+            else {
+                $("#hwastval").html("Asset Value required").hide();
+                h = 1;
+            }
+            totval = a + b + c + d + e + f + g + h + i;
+        }
+
+        $("#addbtn").click(function (event) {
+
+            reqval();
+
+            if (totval === 9) {
+                addfn();
+            }
+            else {
+
+            }
+        });
+        function radiocheck() {
+            var radio = $("input[name='SERIALIZED']:checked").val();
+            $("#SLNO").attr('disabled', false);
+            $("#QTY").attr('disabled', true);
+            if (radio == "1") {
+                $('#SLNO').attr('disabled', false);
+                $("#SLNO").focus();
+                $('#QTY').attr('disabled', true);
+                $("#QTY").val(1);
+            } else if (radio == "0") {
+                $('#SLNO').attr('disabled', true);
+                $('#SLNO').val('');
+                $('#QTY').attr('disabled', false);
+                $("#QTY").focus();
+            }
+        }
+
+        function addfn() {
+            $.ajax({
+                type: "POST",
+                url: "/Hardware/HwAssetIns",
+                data: $('#hardware').serialize(),
+                dataType: 'text',
+                async: true,
+                success: function (message) {
+                    alert(message);
+                    window.location.href = "/Master/AssetGet?assetcode="+message.substring(1, 13);
+                    $("#ASSETTAG").val(message.substring(1, 13));
+                    $("#addbtn").html("Save");
+                    initdatepicker();
+                },
+                error: function () {
+                    alert("Something went wrong");
+                }
+            });
+        }
+    });
+    function getHardwareTable() {
+
+        $.ajax({
+            url: "/Hardware/HardwareGet",
+            type: 'Get',
+            data: { hardcode: selecthardCode },
+            success: function (data) {
+
+                $("#overright").empty().append(data);
+                if ($("#DATELASTMN").val().trim() !== "") {
+                    $("#addbtn").html("Save");
+                    initdatepicker();
+                }
+                else {
+
+                    $("#ASSETTAG").val(selecthardCode);
+                    $("#addbtn").html("Add");
+                    initdatepicker();
+                }
+            },
+            error: function () {
+                alert("something seems wrong");
+                $("#addbtn").html("Add");
+            }
+        });
+    }
+    function getSlnoInfo() {
+
+        $.ajax({
+            url: "/Hardware/HwSlnoVal",
+            type: 'Get',
+            data: { slno: selectSlnoCode },
+            dataType: 'JSON',
+            //async: true,
+            success: function (divis) {
+                //alert(divis);
+                if (divis === '')
+                { $("#hwslno").html(divis).hide(); }
+                else
+                {
+                    $("#hwslno").html(divis).show();
+                    $("#SLNO").val('');
+                }
+            },
+            error: function () {
+                $("#hwslno").html(divis);
+            }
+        });
+    }
+    function NewClick() {
+        $("#ASSETTAG").val('');
+        $("#CATGNAME").val('');
+        $("#BRAND").val('');
+        $("#MDLNAME").val('');
+        $("#MDLNO").val('');
+        $("#SLNO").val('');
+        $("#SERTTAG").val('');
+        $("#HDD").val('');
+        $("#RAM").val('');
+        $("#PROCESSOR").val('');
+        $("#CONFIGURATION").val('');
+        $("#ACCESSORIES").val('');
+        $("#GEOLOC").val('');
+        $("#PHLOC").val('');
+        $("#VENDID").val('');
+        $("#INVOICENUMBER").val('');
+        $("#ASSTNO").val('');
+        $("#ASSTSTS").val('');
+        $("#ASSETVAL").val('');
+        $("#PODATE").val('');
+        $("#ASSETVAL").val('');
+        $("#PRTMDCYC").val('');
+        $("#PRTLTDCYC").val('');
+        $("#DATELASTMN").val('');
+        $("#WAREXP").val('');
+        $("#WARINFO").val('');
+    }
+    //$(function () {
+    //    $(".datepicker").datepicker({
+    //        dateFormat: 'dd-mm-yy',
+    //        changeMonth: true,
+    //        changeYear: true
+    //    });
+    //});
+    function initdatepicker() {
+        $(".datepicker").datepicker({
+            dateFormat: 'dd-mm-yy',
+            changeMonth: true,
+            changeYear: true
+        });
+    }
+
+</script>   

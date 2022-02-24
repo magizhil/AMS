@@ -1,0 +1,41 @@
+﻿@model AMS.Models.AstAsgMultiview
+
+@{
+    ViewBag.Title = "Assign Assets";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+@*<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery-1.8.0.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script type="text/javascript" src="~/Js/Validation.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>*@
+
+
+<div class="w3-container">
+    <header class="w3-container w3-card-4 w3-theme w3-teal">
+        <h3>Assign Asset</h3>
+    </header>
+    @using (Html.BeginForm("AssignAsset", "Assign", FormMethod.Post, new { @class = "w3-container", @id = "assetform", enctype = "multipart/form-data" }))
+    {
+        <div class="w3-container">@Html.Partial("_AssignHeader")</div>
+        <div class="w3-container">@Html.Partial("_AssignHw")</div>
+        <div class="w3-container">@Html.Partial("_AssignSw")</div>
+        <div class="w3-container">@Html.Partial("_AssignEmp")</div>
+    }
+</div>
+<script>
+    $(document).ready(function () {
+        initdatepicker();
+    });
+    function initdatepicker() {
+        $(".datepicker").datepicker({
+            dateFormat: 'dd-mm-yy',
+            changeMonth: true,
+            changeYear: true
+        });
+    }
+</script>

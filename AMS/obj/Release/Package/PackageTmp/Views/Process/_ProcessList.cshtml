@@ -1,0 +1,50 @@
+﻿@model IEnumerable<AMS.Models.ProcessList>
+
+@Html.Label("Process Detail", new { @class = "w3-label" })
+<br />
+<table class="w3-table w3-striped w3-bordered">
+    <thead>
+        <tr class="w3-blue">
+            
+            <th class="tableHeader">Title</th>
+            <th class="tableHeader">Description</th>
+            <th class="tableHeader">Sort Order</th>
+            
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td style="display:none"><button id="test"  value="@item.prsgrp.CHKGRPNAME"></button></td>  
+            
+            <td>@item.CHKLISTTIT</td>
+            <td>@item.CHKLISTDESC</td>
+            <td>@item.SORTORD</td>
+        </tr>
+    }
+</table>
+<button onclick="getValue()">Reading Done</button>
+<script>
+    function getValue() {
+        var test = $("#test").val();
+
+        $.ajax({
+            type: 'POST',
+            contentType: "application/json; charset=utf-8",
+            url: '/Process/userack',
+            data: JSON.stringify({ "name": test }),
+            contentType: "application/json; charset=utf-8",
+            success: function (message) {
+                alert(message);
+                //location.reload();
+                //$("#vendor_det").html(data);
+            },
+            fail: function (message) {
+
+            }
+        });
+        
+    }
+
+
+</script>

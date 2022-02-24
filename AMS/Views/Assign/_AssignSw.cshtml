@@ -1,0 +1,197 @@
+﻿@model AMS.Models.AstAsgMultiview
+<div>
+    <a href="#" onclick="document.getElementById('ASGSWCREATE').style.display='block'" class="w3-btn w3-blue" id="ASGSWBTN">Assign Software</a>
+    <div id="div_swast_det">
+        <div class="w3-responsive">
+            <table class="w3-table-all" border="1">
+                <thead>
+                    <tr class="w3-teal">
+                        <th>View</th>
+                        <th>Asset Tag</th>
+                        <th>Category</th>
+                        <th>Brand</th>
+                        <th>Model</th>
+                        <th>Serial No</th>
+                        <th>Quantity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in ViewBag.AssignDet2)
+            {
+                        <tr>
+                            <td>
+                                @Html.ActionLink("View", "View", new { catcode = item.ID })
+                            </td>
+                            <td>
+                                @item.ASSETTAG
+                            </td>
+                            <td>
+                                @item.CATGNAME
+                            </td>
+                            <td>
+                                @item.BRAND
+                            </td>
+                            <td>
+                                @item.MDLNAME
+                            </td>
+                            <td>
+                                @item.SLNO
+                            </td>
+                            <td>
+                                @item.QTY
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div id="ASGSWCREATE" class="w3-modal">
+        <div class="w3-modal-content" style="width:1100px;">
+            <header class="w3-container w3-teal">
+                <span onclick="document.getElementById('ASGSWCREATE').style.display = 'none'"
+                      class="w3-button w3-display-topright">&times;</span>
+                <h4>Assign Software</h4>
+            </header>
+            <div class="w3-container">
+                <div class="w3-row-padding">
+                    <div class="w3-col l4">
+                        <p>
+                            <label class="w3-text-gray">Asset Tag</label>
+                        </p><p>
+                            @Html.TextBoxFor(m => m.AssetDet2.ASSETTAG, new { @id = "CSWASSETTAG", @style = "width:200px;text-transform:uppercase;border:0px 0px 1px 0px;" })
+                            &nbsp;&nbsp;
+                            <a onclick="NewClickSw();"><img src="~/Images/new.png" width="20" height="20" /></a>
+                        </p>
+                        @*@Html.TextBoxFor(model => model.AssetDet1.ASSETTAG, new { @class = "w3-input w3-border", @id = "ASSETTAG" })*@
+
+                        <p>
+                            <label class="w3-text-gray">Category</label>
+                            @Html.TextBoxFor(model => model.AssetDet2.CATGNAME, new { @class = "w3-input w3-border", @id = "CSWCATGNAME", @style = "background-color:#e6e6e6;", @readonly = "true" })
+                        </p>
+                        <p>
+                            <label class="w3-text-gray">Brand</label>
+                            @Html.TextBoxFor(model => model.AssetDet2.BRAND, new { @class = "w3-input w3-border", @id = "CSWBRAND", @style = "background-color:#e6e6e6;", @readonly = "true" })
+                        </p>
+                    </div>
+                    <div class="w3-col l4">
+                        <p>
+                            <label class="w3-text-gray">Model</label>
+                            @Html.TextBoxFor(model => model.AssetDet2.MDLNAME, new { @class = "w3-input w3-border", @id = "CSWMDLNAME", @style = "background-color:#e6e6e6;", @readonly = "true" })
+                        </p>
+                        <p>
+                            <label class="w3-text-gray">Serial Number</label>
+                            @Html.TextBoxFor(model => model.AssetDet2.SLNO, new { @class = "w3-input w3-border", @id = "CSWSLNO", @style = "background-color:#e6e6e6;", @readonly = "true" })
+                        </p>
+
+                    </div>
+                    <div class="w3-col l4">
+                        <p>
+                            <label class="w3-text-gray">Quantity</label>
+                            @Html.TextBoxFor(model => model.AssetDet2.QTY, new { @class = "w3-input w3-border", @id = "CSWQTY", @type = "number", @Value = "1" })
+                            <span id="swavailqty" class="w3-text-black"></span>
+                        </p>
+                        <p>
+                            <label class="w3-text-gray">Assign Date</label>
+                            @Html.TextBoxFor(model => model.AssetDet2.ASGDATE, new { @class = "w3-input w3-border datepicker", @id = "CSWASGDATE" })
+                        </p>
+                        <p>
+                            <label class="w3-text-gray">Received Date</label>
+                            @Html.TextBoxFor(model => model.AssetDet2.RECDATE, new { @class = "w3-input w3-border datepicker", @id = "CSWRECDATE" })
+                        </p>
+                        <p style="text-align:right;">
+                            <a class="w3-btn w3-blue" id="addbtnswast">Add</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $("#CSWASSETTAG").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "/Assign/GetAssetDet2",
+                    type: "POST",
+                    dataType: "json",
+                    data: { inswval: request.term },
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return { label: item.ASSETTAG + ' ' + item.CATGNAME + ' ' + item.SLNO, value: item.ASSETTAG };
+                        }))
+                    }
+                })
+            },
+            messages: {
+                noResults: "",
+                results: function (count) {
+                    return count + (count > 1 ? ' results' : ' result ') + ' found';
+                }
+            }
+        });
+    })
+    var SelectAssetd2Key;
+    $("#CSWASSETTAG").change(function () {
+        SelectAssetd2Key = $("#CSWASSETTAG").val().trim();
+        if (SelectAssetd2Key === "") {
+
+        }
+        else {
+
+            $.ajax({
+                type: "GET",
+                url: "/Assign/AsgGetD2",
+                dataType: "JSON",
+                data: { asttag: SelectAssetd2Key },
+                success: function (divswasg) {
+                    $("#CSWCATGNAME").val(divswasg.swcatgname);
+                    $("#CSWBRAND").val(divswasg.swbrand);
+                    $("#CSWMDLNAME").val(divswasg.swmdlname);
+                    $("#CSWSLNO").val(divswasg.swslno);
+                    $("#CSWSERIALIZED").val(divswasg.hwserialized);
+                    $("#swavailqty").html("Available Quantity : " + divswasg.swqty).show();
+
+                }
+            });
+        }
+    });
+    $("#addbtnswast").click(function () {
+        //var seqval = $("#HRSEQ").val();
+        if ($("#CSWASSETTAG").val().trim() !== "") {
+            $.ajax({
+                type: "POST",
+                url: "/Assign/AsgSwIns",
+                data: $('#assetform').serialize(),
+                dataType: "text",
+                async: false,
+                success: function (data) {
+                    alert("Inserted Sucessfully");
+                    $("#div_swast_det").html(data);
+                    document.getElementById('ASGSWCREATE').style.display = 'none';
+                },
+                error: function () {
+                    alert("Something went wrong");
+                }
+            });
+        }
+        else {
+
+            window.alert("Asset Tag required to update the data");
+        }
+    });
+
+    function NewClickSw() {
+        $("#CSWASSETTAG").val('');
+        $("#CSWCATGNAME").val('');
+        $("#CSWBRAND").val('');
+        $("#CSWMDLNAME").val('');
+        $("#CSWSLNO").val('');
+        $("#CSWQTY").val(1);
+        $("#CSWASGDATE").val('');
+        $("#CSWRECDATE").val('');
+        $("#swavailqty").html(" ").hide();
+        //$("#addbtnhwast").attr("disabled", "disabled");
+    }
+</script>

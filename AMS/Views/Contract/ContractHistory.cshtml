@@ -1,0 +1,169 @@
+﻿@model IEnumerable<AMS.Models.CntHistory>
+
+@{
+    ViewBag.Title = "ContractHistory";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="w3-container">
+    <header class="w3-container w3-card-4  w3-teal">
+        <a href="~/Hardware/HwAssetDetail" class="w3-button w3-xlarge w3-circle w3-theme-action w3-right w3-light-green" style="top:97px;right:18px;position:fixed">+</a>
+        <h3>Contract Details</h3>
+    </header>
+    <div class="w3-row">
+
+        <div class="w3-border">
+
+            <div class="w3-container w3-responsive">
+                <table class="w3-table w3-striped w3-border" id="CntView">
+                    <thead>
+                        <tr class="w3-blue">
+                            <th>
+                                Year
+                            </th>
+                            <th>
+                                Contract_Number
+                            </th>
+                            <th>
+                                Contract Name
+                            </th>
+                            <th>
+                                Vendor Id
+                            </th>
+                            <th>
+                                Vendor Name
+                            </th>
+                            <th>
+                                Email
+                            </th>
+                            <th>
+                                Phone No
+                            </th>
+                            <th>
+                                Address
+                            </th>
+                            <th>
+                                Signing Location
+                            </th>
+                            <th>
+                                Execute Location
+                            </th>
+                            <th>
+                                Contract Type
+                            </th>
+                            <th>
+                                Contract Purpose
+                            </th>
+                            <th>
+                                Contract Inforamtion
+                            </th>
+                            <th>
+                                Contract Value
+                            </th>
+                            <th>
+                                Start Date
+                            </th>
+                            <th>
+                                End Date
+                            </th>
+                            
+                            <th>
+                                Status
+                            </th>
+                            <th>
+                                Contract Period
+                            </th>
+                            <th>
+                                Renewal Type
+                            </th>
+                            <th>
+                                Group
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CNTYEAR)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CNTNUMBER)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CNTNAME)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.VENDID)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.VENDNAME)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.EMAIL)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.PHNO)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.VENDADDR)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.SIGNLOC)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.EXECLOC)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CNTTYPE)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CNTPURPOSE)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CNTINFO)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CNTVALUE)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CNTSTARTDT)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CNTENDDT)
+                                </td>
+                                
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CNTSTATUS)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CNTPRD)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.RENEWTYPE)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CNTGRP)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $("#CntView").dataTable({
+            "scrollY": 300,
+            "scrollX": true,
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ]
+        });
+    });
+</script>

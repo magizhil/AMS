@@ -1,0 +1,108 @@
+﻿@model AMS.Models.AstAsgMultiview
+
+
+
+<div class="w3-row-padding">
+    <div class="w3-col l4">
+        <p>
+            <label class="w3-text-teal">Asset Tag</label>
+        </p>
+        <p>
+            @Html.TextBoxFor(m => m.HwAssetDet.ASSETTAG, new { @id = "ASSETTAG", @style = "width:200px;text-transform:uppercase;border:0px 0px 1px 0px;" })
+            &nbsp;&nbsp;
+            <a onclick="NewClick();"><img src="~/Images/new.png" width="20" height="20" /></a>
+        </p>
+        <p>
+            <label class="w3-text-teal">Category Type</label>
+            @*@Html.DropDownListFor(m => m.CATGNAME, new SelectList(ViewBag.hwcatg, "CATGNAME", "CATGDESC"), "--- Select ---", new { @class = "w3-input", @id = "CATGNAME" })*@
+            @Html.TextBoxFor(m => m.HwAssetDet.CATGNAME, new { @class = "w3-input", @id = "CATGNAME", @style = "background-color:#e6e6e6;", @readonly = "true" })
+        </p>
+    </div>
+    <div class="w3-col l4">
+        <p>
+            <label class="w3-text-teal">Brand</label>
+            @Html.TextBoxFor(m => m.HwAssetDet.BRAND, new { @class = "w3-input", @id = "BRAND", @style = "background-color:#e6e6e6;", @readonly = "true" })
+        </p>
+        <p>
+            <label class="w3-text-teal">Model Name</label>
+            @Html.TextBoxFor(m => m.HwAssetDet.MDLNAME, new { @class = "w3-input", @id = "MDLNAME", @style = "background-color:#e6e6e6;", @readonly = "true" })
+        </p>
+    </div>
+    <div class="w3-col l4">
+        <p>
+            <label class="w3-text-teal">Serial Number</label>
+            @Html.TextBoxFor(m => m.HwAssetDet.SLNO, new { @class = "w3-input", @id = "SLNO", @style = "background-color:#e6e6e6;", @readonly = "true" })
+        </p>
+        <p>
+            <label class="w3-text-teal">Last Maintained At</label>
+            @Html.TextBoxFor(m => m.HwAssetDet.DATELASTMN, new { @class = "w3-input", @id = "DATELASTMN", @style = "background-color:#e6e6e6;", @readonly = "true" })
+        </p>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $("#ASSETTAG").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "/Assign/GetMasteDet",
+                    type: "POST",
+                    dataType: "json",
+                    data: { invvalue: request.term },
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return { label: item.ASSETTAG + ' ' + item.CATGNAME + ' ' + item.SLNO, value: item.ASSETTAG };
+                        }))
+
+                    }
+                })
+            },
+            messages: {
+                noResults: "",
+                results: function (count) {
+                    return count + (count > 1 ? ' results' : ' result ') + ' found';
+                }
+            }
+        });
+    });
+    var SelectAssetKey;
+    $("#ASSETTAG").change(function () {
+        SelectAssetKey = $("#ASSETTAG").val().trim();
+        if (SelectAssetKey === "") {
+
+        }
+        else {
+            getAssetTable();
+           
+        }
+    });
+    function getAssetTable() {
+
+        $.ajax({
+            url: "/Assign/AsgGet",
+            type: 'Get',
+            data: { asttag: SelectAssetKey },
+            success: function (data) {
+                $("#overright").empty().append(data);
+                if ($("#ASSETTAG").val().trim() != " ") {
+
+                    $("#ASGHWBTN").show();
+                    $("#ASGSWBTN").show();
+                    $("#ASGEMPBTN").show();
+                }
+                else {
+                    $("#ASGHWBTN").hide();
+                    $("#ASGSWBTN").hide();
+                    $("#ASGEMPBTN").hide();
+                }
+            },
+            error: function () {
+                alert("something seems wrong");
+            }
+        });
+    }
+    function NewClick() {
+        SelectAssetKey = "";
+        getAssetTable();
+    }
+    
+</script>

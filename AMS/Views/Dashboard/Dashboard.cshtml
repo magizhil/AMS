@@ -1,0 +1,65 @@
+﻿@using AMS.Models
+@model AMS.Models.DBMultiview
+
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@*<script src="~/Scripts/jquery-1.8.0.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>*@
+
+<div class="w3-container" >
+    <div class="w3-row">
+        <div class="w3-border">
+            <div class="w3-container">
+                <table class="w3-table w3-striped w3-border" >
+                    <tr class="w3-blue">
+                        <th>
+                            Category Name
+                        </th>
+                        <th>
+                        Chennai
+                        </th>
+                        <th>
+                            Pune
+                        </th>
+                        <th>
+                            Odisha
+                        </th>
+                        <th>Vijayawada</th>
+                        <th>Field</th>
+                    </tr>
+
+                    @foreach(DBHwAstDet hwdet in Model.dbhwastdet)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => hwdet.CATGNAME)
+                                
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => hwdet.CHENNAI)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => hwdet.PUNE)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => hwdet.ODISHA)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => hwdet.VIJAYAWADA)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => hwdet.FIELD)
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+

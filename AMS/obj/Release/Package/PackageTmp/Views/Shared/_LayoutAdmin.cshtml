@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="~/Css/w3.css" />
+    <style>
+        .navbar {
+            overflow: hidden;
+            position: fixed; 
+            top: 0; 
+            width: 100%; 
+        }
+    </style>
+    <link rel="stylesheet" href="~/Content/themes/base/jquery-ui.css" />
+    <link rel="stylesheet" href="~/Css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" href="~/Css/buttons.dataTables.min.css" />
+    <script type="text/javascript" src="~/Scripts/jquery-1.12.4.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery-ui-1.12.1.js"></script>
+    <script type="text/javascript" src="~/Js/jquery.min.js"></script>
+    <script type="text/javascript" src="~/Js/jquery-1.12.4.js"></script>
+    <script type="text/javascript" src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/DataTables/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" src="~/Js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/buttons.flash.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jszip.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/pdfmake.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/vfs_fonts.js"></script>
+    <script type="text/javascript" src="~/Scripts/buttons.html5.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/buttons.print.min.js"></script>
+    
+    
+    
+</head>
+<body>
+    
+        <div id="overright">
+            <div class="navbar">
+                <div class="w3-center w3-bar w3-white">
+                    <div class="w3-row">
+                        <div class="w3-col l4">
+                            <div class="w3-left">
+                                <img src="~/Images/logo.png" width="100" height="37" />
+                            </div>
+                        </div>
+                        <div class="w3-col l4"><h3>Asset Management System</h3></div>
+                    </div>
+                </div>
+                <!-- Navbar -->
+                <div class="w3-top" style="margin-top:45px">
+                    <div class="w3-bar w3-teal w3-left-align">
+                        <div class="w3-dropdown-hover  w3-teal">
+                            <button class="w3-button">Dashboard</button>
+                            <div class="w3-dropdown-content w3-card-4 w3-bar-block">
+                                <a href="~/Dashboard/Dashboard" class="w3-bar-item w3-button">Hardware</a>
+                                <a href="~/Dashboard/DashboardSoft" class="w3-bar-item w3-button">Software</a>
+
+                            </div>
+                        </div>
+                        <div class="w3-dropdown-hover  w3-teal">
+                            <button class="w3-button">Masters</button>
+                            <div class="w3-dropdown-content w3-card-4 w3-bar-block">
+                                <a href="~/Master/CatgList" class="w3-bar-item w3-button">Category</a>
+                                <a href="~/Master/VendorList" class="w3-bar-item w3-button">Vendor</a>
+                                <a href="~/Master/CntList" class="w3-bar-item w3-button">Contract Type</a>
+                                
+                            </div>
+                        </div>
+                        <a href="~/Hardware/HardwareList" class="w3-bar-item w3-button  w3-hover-gray">Hardware</a>
+                        <a href="~/Software/SoftwareList" class="w3-bar-item w3-button w3-hover-gray">Software</a>
+                        <a href="~/Assign/AssignAsset" class="w3-bar-item w3-button w3-hover-gray">Assign</a>
+                        <a href="~/Master/InvoiceView" class="w3-bar-item w3-button w3-hover-gray">Invoice Upload</a>
+                        <div class="w3-dropdown-hover  w3-teal">
+                            <button class="w3-button">Process</button>
+                            <div class="w3-dropdown-content w3-card-4 w3-bar-block">
+                                <a href="~/Process/PrsGrp" class="w3-bar-item w3-button">Process Group</a>
+                                <a href="~/Process/prslist" class="w3-bar-item w3-button">Process List</a>
+                                <a href="~/Process/SuggBoxList" class="w3-bar-item w3-button">Suggestions</a>
+                                <a href="~/Process/UserCount" class="w3-bar-item w3-button">Reading Information</a>
+
+                            </div>
+                        </div>
+                        <div class="w3-dropdown-hover  w3-teal">
+                            <button class="w3-button">Todo</button>
+                            <div class="w3-dropdown-content w3-card-4 w3-bar-block">
+                                <a href="~/Process/ProcessView" class="w3-bar-item w3-button">Instructions</a>
+                                <a href="~/Process/SuggBox" class="w3-bar-item w3-button">Suggestion</a>
+
+                            </div>
+                        </div>
+                        <div class="w3-dropdown-hover  w3-teal">
+                            <button class="w3-button">CMS</button>
+                            <div class="w3-dropdown-content w3-card-4 w3-bar-block">
+                                <a href="~/Contract/ContractDet" class="w3-bar-item w3-button">Add Contract</a>
+                                <a href="~/Contract/ContractView" class="w3-bar-item w3-button">View Contract</a>
+
+                            </div>
+                        </div>
+                        <a href="#" class="w3-bar-item w3-button w3-right w3-hover-gray">@Html.Partial("_LoginPartial")</a>
+                    </div>
+                </div>
+            </div>
+        <div style="margin-top:95px">
+            @RenderBody()
+        </div>
+    </div>
+</body>
+</html>

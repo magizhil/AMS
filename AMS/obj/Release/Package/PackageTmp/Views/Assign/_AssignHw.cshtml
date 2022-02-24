@@ -1,0 +1,224 @@
+﻿@*@model IList <AMS.Models.AstAsgMultiview>*@
+@model AMS.Models.AstAsgMultiview
+<div>
+    <a href="#" onclick="document.getElementById('ASGHWCREATE').style.display='block'" class="w3-btn w3-blue"  id="ASGHWBTN">Assign Hardware</a>
+    <div id="div_hwast_det">
+        <div class="w3-responsive">
+            <table class="w3-table-all" border="1">
+                <thead>
+                    <tr class="w3-teal">
+                        <th>View</th>
+                        <th>Asset Tag</th>
+                        <th>Category</th>
+                        <th>Brand</th>
+                        <th>Model</th>
+                        <th>Serial No</th>
+                        <th>Quantity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in ViewBag.AssignDet1)
+            {
+                        <tr>
+                            <td>
+                                @Html.ActionLink("View", "View", new { catcode = item.ID })
+                            </td>
+                            <td>
+                                @item.ASSETTAG
+                            </td>
+                            <td>
+                                @item.CATGNAME
+                            </td>
+                            <td>
+                                @item.BRAND
+                            </td>
+                            <td>
+                                @item.MDLNAME
+                            </td>
+                            <td>
+                                @item.SLNO
+                            </td>
+                            <td>
+                                @item.QTY
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div id="ASGHWCREATE" class="w3-modal">
+        <div class="w3-modal-content" style="width:1100px;">
+            <header class="w3-container w3-teal">
+                <span onclick="document.getElementById('ASGHWCREATE').style.display = 'none'"
+                      class="w3-button w3-display-topright">&times;</span>
+                <h3>Assign Hardware</h3>
+            </header>
+            <div class="w3-container">
+                <div class="w3-row-padding">
+                    <div class="w3-col l4">
+                        <p>
+                            <label class="w3-text-gray">Asset Tag</label>
+                            </p><p>
+                            @Html.TextBoxFor(m => m.AssetDet1.ASSETTAG, new { @id = "CASSETTAG", @style = "width:200px;text-transform:uppercase;border:0px 0px 1px 0px;" })
+                            <a onclick="NewClickHw();"><img src="~/Images/new.png" width="20" height="20" /></a>
+                        </p>
+                        @*@Html.TextBoxFor(model => model.AssetDet1.ASSETTAG, new { @class = "w3-input w3-border", @id = "ASSETTAG" })*@
+
+                        <p>
+                            <label class="w3-text-gray">Category</label>
+                            @Html.TextBoxFor(model => model.AssetDet1.CATGNAME, new { @class = "w3-input w3-border", @id = "CCATGNAME", @style = "background-color:#e6e6e6;", @readonly = "true" })
+                        </p>
+                        <p>
+                            <label class="w3-text-gray">Brand</label>
+                            @Html.TextBoxFor(model => model.AssetDet1.BRAND, new { @class = "w3-input w3-border", @id = "CBRAND", @style = "background-color:#e6e6e6;", @readonly = "true" })
+                        </p>
+                    </div>
+                    <div class="w3-col l4">
+                        <p>
+                            <label class="w3-text-gray">Model</label>
+                            @Html.TextBoxFor(model => model.AssetDet1.MDLNAME, new { @class = "w3-input w3-border", @id = "CMDLNAME", @style = "background-color:#e6e6e6;", @readonly = "true" })
+                        </p>
+                        <p>
+                            <label class="w3-text-gray">Serial Number</label>
+                            @Html.TextBoxFor(model => model.AssetDet1.SLNO, new { @class = "w3-input w3-border", @id = "CSLNO", @style = "background-color:#e6e6e6;", @readonly = "true" })
+                        </p>
+                        <p>
+                            <label class="w3-text-gray">Serialized</label>
+                            @Html.TextBoxFor(model => model.AssetDet1.SERIALIZED, new { @class = "w3-input w3-border", @id = "CSERIALIZED", @style = "background-color:#e6e6e6;", @readonly = "true", @type = "number", @Value="1" })
+                        </p>
+                    </div>
+                    <div class="w3-col l4">
+                        <p>
+                            <label class="w3-text-gray">Quantity</label>
+                            @Html.TextBoxFor(model => model.AssetDet1.QTY, new { @class = "w3-input w3-border", @id = "CQTY", @type = "number", @Value = "1" })
+                            <span id="hwavailqty" class="w3-text-black"></span>
+                        </p>
+                        <p>
+                            <label class="w3-text-gray">Assign Date</label>
+                            @Html.TextBoxFor(model => model.AssetDet1.ASGDATE, new { @class = "w3-input w3-border datepicker", @id = "CASGDATE" })
+                        </p>
+                        <p>
+                            <label class="w3-text-gray">Received Date</label>
+                            @Html.TextBoxFor(model => model.AssetDet1.RECDATE, new { @class = "w3-input w3-border datepicker", @id = "CRECDATE" })
+                        </p>
+                        <p style="text-align:right;">
+                            <a class="w3-btn w3-blue" disabled id="addbtnhwast">Add</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        initdatepicker1();
+        $("#CASSETTAG").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "/Assign/GetAssetDet1",
+                    type: "POST",
+                    dataType: "json",
+                    data: { inhwval: request.term },
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return { label: item.ASSETTAG + ' ' + item.CATGNAME + ' ' + item.SLNO, value: item.ASSETTAG };
+                        }))
+
+                    }
+                })
+            },
+            messages: {
+                noResults: "",
+                results: function (count) {
+                    return count + (count > 1 ? ' results' : ' result ') + ' found';
+                }
+            }
+        });
+    })
+    var SelectAssetd1Key;
+    $("#CASSETTAG").change(function () {
+        SelectAssetd1Key = $("#CASSETTAG").val().trim();
+        if (SelectAssetd1Key === "") {
+
+        }
+        else {
+            if ($("#CASSETTAG").val().trim() != "") {
+                $.ajax({
+                    type: "GET",
+                    url: "/Assign/AsgGetD1",
+                    dataType: "JSON",
+                    data: { asttag: SelectAssetd1Key },
+                    success: function (divhwasg) {
+                        $("#CCATGNAME").val(divhwasg.hwcatgname);
+                        $("#CBRAND").val(divhwasg.hwbrand);
+                        $("#CMDLNAME").val(divhwasg.hwmdlname);
+                        $("#CSLNO").val(divhwasg.hwslno);
+                        $("#CSERIALIZED").val(divhwasg.hwserialized);
+                        $("#hwavailqty").html("Available Quantity : " + divhwasg.hwqty).show();
+                        
+                        if (divhwasg.hwserialized == 1) {
+                            $('#CQTY').attr('readonly', true);
+                            $("#CQTY").val("1");
+                        }
+                        else {
+                            $('#CQTY').attr('readonly', false);
+                            $("#CQTY").val("1");
+                        }
+                    }
+                });
+            }
+            else
+            {
+
+            }
+        }
+    });
+    $("#addbtnhwast").click(function () {
+        if ($("#CASSETTAG").val().trim() !== "") {
+            $.ajax({
+                type: "POST",
+                url: "/Assign/AsgHwIns",
+                data: $('#assetform').serialize(),
+                dataType: "text",
+                async: false,
+                success: function (data) {
+                    alert("Inserted Sucessfully");
+                    $("#div_hwast_det").html(data);
+                    document.getElementById('ASGHWCREATE').style.display = 'none';
+                },
+                error: function () {
+                    alert("Something went wrong");
+                }
+            });
+        }
+        else {
+
+            window.alert("Asset Tag required to update the data");
+        }
+    });
+    
+    function initdatepicker1() {
+        $(".datepicker").datepicker({
+            dateFormat: 'dd-mm-yy',
+            changeMonth: true,
+            changeYear: true
+        });
+    }
+    function NewClickHw()
+    {
+        $("#CASSETTAG").val('');
+        $("#CCATGNAME").val('');
+        $("#CBRAND").val('');
+        $("#CMDLNAME").val('');
+        $("#CSLNO").val('');
+        $("#CSERIALIZED").val(0);
+        $("#CQTY").val(1);
+        $("#CASGDATE").val('');
+        $("#CRECDATE").val('');
+        $("#hwavailqty").html(" ").hide();
+        //$("#addbtnhwast").attr("disabled", "disabled");
+    }
+
+</script>

@@ -1,0 +1,252 @@
+﻿@model AMS.Models.MsVendor
+
+@{
+    ViewBag.Title = "Vendor Detail";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="w3-container">
+    <div class="w3-row">
+        <div class="w3-col l2"><p></p></div>
+        <div class="w3-col l8  w3-border">
+            <header class="w3-container w3-card-4 w3-theme w3-teal" style="position:relative">
+                <h3>Vendor Details</h3>
+            </header>
+            <form id="vendor">
+                <div class="w3-container">
+                    <div class="w3-row-padding">
+                        <div class="w3-col l6">
+                            <p>
+                                <label class="w3-text-teal">Vendor ID</label>
+                                </p><p>
+                                @Html.TextBoxFor(m => m.VENDID, new {  @id = "VENDID" ,@style= "width:270px;text-transform:uppercase;border:0px 0px 1px 0px;" })
+                                &nbsp;&nbsp;
+                                <a onclick="FindItm();"><img src="~/Images/search.png" width="20" height="20" /></a>
+                                &nbsp;&nbsp;
+                                <a onclick="NewClick();"><img src="~/Images/new.png" width="20" height="20" /></a>
+                                <span id="vendiderr" class="w3-text-red"></span>
+
+                            </p>
+                            <p>
+                                <label class="w3-text-teal">Vendor Name</label>
+                                @Html.TextBoxFor(m => m.VENDNAME, new { @class = "w3-input", @id = "VENDNAME" })
+                                <span id="vendnameerr" class="w3-text-red"></span>
+                            </p>
+                            <p>
+                                <label class="w3-text-teal">Vendor Address</label>
+                                @Html.TextAreaFor(m => m.VENDADDR, new { @class = "w3-input" ,@style="height:100px;" })
+                            </p>
+                            <p>
+                                <label class="w3-text-teal">Vendor Email</label>
+                                @Html.TextBoxFor(m => m.VENDEMAIL, new { @class = "w3-input", @id = "VENDEMAIL" })
+                                <span id="emailerr" class="w3-text-red"></span>
+                            </p>
+                        </div>
+                        <div class="w3-col l6">
+                            <p>
+                                <label class="w3-text-teal">Vendor Mobile Number</label>
+                                @Html.TextBoxFor(m => m.VENDPHNO, new { @class = "w3-input", @id = "VENDPHNO" })
+                                <span id="vendphnoerr" class="w3-text-red"></span>
+                            </p>
+                            <p style="height:59px;">
+                                <label class="w3-text-teal">Status</label>
+                                <br />
+                                @Html.RadioButtonFor(m => m.INACTIVE, "0", new { @checked = "", @id = "INACTIVE1" }) &nbsp;&nbsp; <label>Active </label>&nbsp;&nbsp;
+
+                                @Html.RadioButtonFor(m => m.INACTIVE, "1", new { @id = "INACTIVE2" }) &nbsp;&nbsp; <label>Inactive</label>
+                            </p>
+                            <p>
+                                <label class="w3-text-teal">Remarks & Comments</label>
+                                @Html.TextAreaFor(m => m.COMMENTS, new { @class = "w3-input", @style = "height:100px;" })
+                            </p>
+
+                            <p>
+                                <label class="w3-text-teal">Last Modified By</label>
+                                @Html.TextBoxFor(m => m.DATELASTMN, new { @class = "w3-input", @id = "DATELASTMN", @style = "background-color:#e6e6e6;", @readonly = "true" })
+                            </p>
+                            <p class="w3-right">
+                                <button type="button" class="w3-button w3-blue w3-round w3-hover-teal" id="addbtn">Add</button>
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+        <div class="w3-col l2"></div>
+    </div>
+
+</div>
+<script>
+    //validation Start
+    $(document).ready(function () {
+        var totval;
+        $("#VENDEMAIL").change(function () {
+            if (!ValidateEmail($("#VENDEMAIL").val())) {
+                $("#emailerr").html("Invalid Email Address").show();
+                return false;
+            }
+            else { $("#emailerr").html("Invalid Email Address").hide(); }
+        });
+        $("#VENDPHNO").change(function () {
+            if (ValidatePhno($("#VENDPHNO").val())) {
+                if ($("#VENDPHNO").val().length == 10) {
+
+                    $("#vendphnoerr").html("Phone number not valid").hide();
+                }
+                else {
+                    $("#vendphnoerr").html("Enter 10 digit Phone number").show();
+
+                    return false;
+                }
+            }
+            else {
+                $("#vendphnoerr").html("Phone number not valid").show();
+                return false;
+            }
+        });
+        $("#VENDNAME").change(function () {
+            if ($("#VENDNAME").val() === '') {
+                $("#vendnameerr").html("Vendor Name Required").show();
+            }
+            else {
+                $("#vendnameerr").html("Vendor Name Required").hide();
+            }
+        });
+        function reqval() {
+            var a, b, c, d;
+            if ($("#VENDID").val() === '') {
+                $("#vendiderr").html("Vendor ID Required").show();
+                a = 0;
+            }
+            else {
+                $("#vendiderr").html("Vendor ID Required").hide();
+                a = 1;
+            }
+            if ($("#VENDNAME").val() === '') {
+                $("#vendnameerr").html("Vendor Name Required").show();
+                b = 0;
+            }
+            else {
+                $("#vendnameerr").html("Vendor Name Required").hide();
+                b = 1;
+            }
+            if ($("#VENDEMAIL").val() === '') {
+                $("#emailerr").html("Email Required").show();
+                c = 0;
+
+            }
+            else if (!ValidateEmail($("#VENDEMAIL").val())) {
+                $("#emailerr").html("Invalid Email Address").show();
+                c = 0;
+                //return false;
+            }
+            else {
+                $("#emailerr").html("Valid Email Address").hide();
+                c = 1;
+                //return false;
+            }
+            if ($("#VENDPHNO").val() === '') {
+                $("#vendphnoerr").html("Phone Number Required").show();
+                d = 0;
+
+            }
+            else if (ValidatePhno($("#VENDPHNO").val())) {
+                if ($("#VENDPHNO").val().length == 10) {
+                    $("#vendphnoerr").html("Phone number not valid").hide();
+                d = 1;
+                }
+                else {
+                    $("#vendphnoerr").html("Enter 10 digit Phone number").show();
+                d = 0;
+                    //return false;
+                }
+            }
+            else {
+                $("#vendphnoerr").html("Phone number not valid").show();
+                d = 0;
+                //return false;
+            }
+            totval = a + b + c + d;
+        }
+        function addfn()
+        {
+            $.ajax({
+                type: "POST",
+                url: "/Master/VendorIns",
+                data: $('#vendor').serialize(),
+                dataType: 'text',
+                async: true,
+                success: function (message) {
+                    alert(message);
+                    getVendTable();
+                },
+                error: function () {
+                    alert("Something went wrong");
+                }
+            });
+        }
+        
+        //validation End
+        $("#addbtn").click(function (event) {
+            reqval();
+            if (totval === 4) {
+                addfn();
+            }
+            else
+            {
+
+            }
+        });
+    });
+    function NewClick() {
+        $("#VENDID").val('');
+        $("#VENDNAME").val('');
+        $("#VENDEMAIL").val('');
+        $("#VENDPHNO").val('');
+        $("#VENDADDR").val('');
+        $("#VENDID").val('');
+        $("#COMMENTS").val('');
+        $("#INACTIVE1").attr('checked', true);
+        $("#DATELASTMN").val('');
+
+    }
+
+    $("#VENDID").change(function () {
+        selectVendCode = $("#VENDID").val().trim();
+        if (selectVendCode === "") {
+            $("#vendiderr").html("Vendor ID Required").show();
+        }
+        else {
+            $("#vendiderr").html("Vendor ID Required").hide();
+            getVendTable();
+        }
+    });
+    function getVendTable() {
+
+        $.ajax({
+            url: "/Master/VendorGet",
+            type: 'Get',
+            data: { vendcode: selectVendCode },
+            success: function (data) {
+
+                $("#overright").empty().append(data);
+
+                if ($("#DATELASTMN").val().trim() !== "") {
+                    $("#addbtn").html("Save");
+                }
+                else {
+
+                    $("#VENDID").val(selectVendCode);
+                    $("#VENDNAME").focus();
+                    $("#addbtn").html("Add");
+                }
+            },
+            error: function () {
+                alert("something seems wrong");
+                $("#addbtn").html("Add");
+            }
+        });
+    }
+</script>
+

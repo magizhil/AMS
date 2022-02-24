@@ -1,0 +1,115 @@
+﻿@model IEnumerable<AMS.Models.MsCategory>
+
+@{
+    ViewBag.Title = "Category List";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<div class="w3-container">
+    <div class="w3-row">
+
+        <div class="w3-border">
+
+            <div class="w3-container">
+                <header class="w3-container w3-card-4  w3-teal">
+                    <a href="~/Master/CatgDet" class="w3-button w3-xlarge w3-circle w3-theme-action w3-right w3-light-green" style="top:120px;right:16px;position:fixed">+</a>
+                    <h3>Category Details</h3>
+                </header>
+
+                <table class="w3-table w3-striped w3-border">
+                    <tr class="w3-blue">
+                        <th>
+                            Category Name
+                        </th>
+                        <th>
+                            Description
+                        </th>
+                        <th>
+                            Type
+                        </th>
+                        <th>
+                            Status
+                        </th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CATGNAME)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CATGDESC)
+                            </td>
+                            <td>
+                                @switch (@item.CATGTYPE)
+                                {
+                                    case 1:
+                                        <label>Hardware</label>
+                                        break;
+                                    case 2:
+                                        <label>Software</label>
+                                        break;
+                                    case 3:
+                                        <label>Others</label>
+                                        break;
+                                    default:
+                                        <label>Not Set</label>
+                                        break;
+                                }
+                            </td>
+                            <td>
+                                @switch (@item.INACTIVE)
+                                {
+                                    case 0:
+                                        <label>Active</label>
+                                        break;
+                                    case 1:
+                                        <label>Inactive</label>
+                                        break;
+                                    default:
+                                        <label>Not Set</label>
+                                        break;
+                                }
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "CatgGet", new { catcode = item.CATGNAME })
+                            </td>
+                            <td><a class="a_delete_catg" id="@(item.CATGNAME)">Delete</a></td>
+                        </tr>
+                    }
+
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script>
+
+    $(".a_delete_catg").click(function () {
+
+        var identities = (this).id;
+
+        $.ajax({
+            type: 'POST',
+            contentType: "application/json; charset=utf-8",
+            url: '/Master/DelCatg',
+            data: JSON.stringify({ "id": identities }),
+            contentType: "application/json; charset=utf-8",
+            success: function (message) {
+                alert(message);
+                location.reload();
+                //$("#vendor_det").html(data);
+            },
+            fail: function (message) {
+
+            }
+        });
+    });
+
+
+</script>

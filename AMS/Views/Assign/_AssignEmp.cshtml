@@ -1,0 +1,386 @@
+﻿@model AMS.Models.AstAsgMultiview
+<div>
+    <a href="#" onclick="document.getElementById('ASGEMPCREATE').style.display='block'" class="w3-btn w3-blue" id="ASGEMPBTN">Assign Employee</a>
+    <div id="div_empast_det">
+        <div class="w3-responsive">
+            <table class="w3-table-all" border="1">
+                <thead>
+                    <tr class="w3-teal">
+                        <th>View</th>
+                        <th>Employee Code</th>
+                        <th>Name</th>
+                        <th>Designation</th>
+                        <th>Department</th>
+                        <th>Location</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in ViewBag.AssignDet3)
+                    {
+                        <tr>
+                            <td>
+                                @Html.ActionLink("View", "View", new { catcode = item.ID })
+                            </td>
+                            <td>
+                                @item.EMPCODE
+                            </td>
+                            <td>
+                                @item.EMPNAME
+                            </td>
+                            <td>
+                                @item.DESG
+                            </td>
+                            <td>
+                                @item.DEPT
+                            </td>
+                            <td>
+                                @item.EMPLOC
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div id="ASGEMPCREATE" class="w3-modal">
+        <div class="w3-modal-content" style="width:1100px;">
+            <header class="w3-container w3-teal">
+                <span onclick="document.getElementById('ASGEMPCREATE').style.display = 'none'"
+                      class="w3-button w3-display-topright">&times;</span>
+                <h3>Employee</h3>
+            </header>
+            <div class="w3-container">
+                <div class="w3-row-padding">
+                    <div class="w3-col l4">
+                        <p>
+                            <label class="w3-text-gray">Employee Code</label>
+                            @Html.TextBoxFor(m => m.AssetDet3.EMPCODE, new { @class = "w3-input w3-border", @id = "EMPCODE" })
+                            <span id="errempcode" class="w3-text-red"></span>
+                        </p>
+                        @*@Html.TextBoxFor(model => model.AssetDet1.ASSETTAG, new { @class = "w3-input w3-border", @id = "ASSETTAG" })*@
+
+                        <p>
+                            <label class="w3-text-gray">Employee Name</label>
+                            @Html.TextBoxFor(model => model.AssetDet3.EMPNAME, new { @class = "w3-input w3-border", @id = "EMPNAME" })
+                            <span id="errempname" class="w3-text-red"></span>
+                        </p>
+                        <p>
+                            <label class="w3-text-gray">Designation</label>
+                            @Html.TextBoxFor(model => model.AssetDet3.DESG, new { @class = "w3-input w3-border", @id = "DESG" })
+                            <span id="errempdesg" class="w3-text-red"></span>
+                        </p>
+                        <p>
+                            <label class="w3-text-gray">Department</label>
+                            @Html.TextBoxFor(model => model.AssetDet3.DEPT, new { @class = "w3-input w3-border", @id = "DEPT" })
+                            <span id="errempdept" class="w3-text-red"></span>
+                        </p>
+                        <p>
+                            <label class="w3-text-gray">Reporting Manager</label>
+                            @Html.TextBoxFor(model => model.AssetDet3.RPTMANAGER, new { @class = "w3-input w3-border", @id = "RPTMANAGER" })
+                            <span id="erremprptmgr" class="w3-text-red"></span>
+                        </p>
+                    </div>
+                    <div class="w3-col l4">
+                        <p>
+                            <label class="w3-text-gray">Location</label>
+                            @Html.TextBoxFor(model => model.AssetDet3.EMPLOC, new { @class = "w3-input w3-border", @id = "EMPLOC" })
+                        </p>
+                        <p>
+                            <label class="w3-text-gray">Employee Contact 1</label>
+                            @Html.TextBoxFor(model => model.AssetDet3.EMPCONT1, new { @class = "w3-input w3-border", @id = "EMPCONT1", @type = "Number" })
+                            <span id="errempcont1" class="w3-text-red"></span>
+
+                        </p>
+                        <p>
+                            <label class="w3-text-gray">Employee Contact 2</label>
+                            @Html.TextBoxFor(model => model.AssetDet3.EMPCONT2, new { @class = "w3-input w3-border", @id = "EMPCONT2", @type = "Number" })
+                            <span id="errempcont2" class="w3-text-red"></span>
+                        </p>
+                        <p>
+                            <label class="w3-text-gray">Physical Location</label>
+                            @Html.TextBoxFor(model => model.AssetDet3.PHLOC, new { @class = "w3-input w3-border", @id = "PHLOC" })
+                        </p>
+                        <p>
+                            <label class="w3-text-gray">Geo Location</label>
+                            @Html.TextBoxFor(model => model.AssetDet3.GEOLOC, new { @class = "w3-input w3-border", @id = "GEOLOC" })
+                        </p>
+                    </div>
+                    <div class="w3-col l4">
+                        <p>
+                            <label class="w3-text-gray">Email</label>
+                            @Html.TextBoxFor(model => model.AssetDet3.EMPEMAIL, new { @class = "w3-input w3-border", @id = "EMPEMAIL" })
+                            <span id="errempmail" class="w3-text-red"></span>
+                        </p>
+                        <p>
+                            <label class="w3-text-gray">Date of Joining</label>
+                            @Html.TextBoxFor(model => model.AssetDet3.DOJ, new { @class = "w3-input w3-border datepicker", @id = "DOJ" })
+                        </p>
+                        <p>
+                            <label class="w3-text-gray">Assign Date</label>
+                            @Html.TextBoxFor(model => model.AssetDet3.ASGDATE, new { @class = "w3-input w3-border datepicker", @id = "EMASGDATE" })
+                            <span id="errempasgdate" class="w3-text-red"></span>
+                        </p>
+                        <p>
+                            <label class="w3-text-gray">Received Date</label>
+                            @Html.TextBoxFor(model => model.AssetDet3.RECDATE, new { @class = "w3-input w3-border datepicker", @id = "EMRECDATE" })
+                            <span id="erremprecdate" class="w3-text-red"></span>
+                        </p>
+                        <p style="text-align:right;">
+                            <a class="w3-btn w3-blue" id="addbtnempast">Add</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        var totval = 0;
+        $("#EMPCODE").change(function () {
+            if ($("#EMPCODE").val() === '') {
+                $("#errempcode").html("* Employee Code Required").show();
+            }
+            else {
+                $("#errempcode").html("* Employee Code Required").hide();
+
+                empchange();
+            }
+        });
+        $("#EMPNAME").change(function () {
+            if ($("#EMPNAME").val() === '') {
+                $("#errempname").html("* Employee Name Required").show();
+            }
+            else {
+                $("#errempname").html("* Employee Name Required").hide();
+            }
+        });
+        $("#DESG").change(function () {
+            if ($("#DESG").val() === '') {
+                $("#errempdesg").html("* Employee Designation Required").show();
+            }
+            else {
+                $("#errempdesg").html("* Employee Designation Required").hide();
+            }
+        });
+        $("#DEPT").change(function () {
+            if ($("#DEPT").val() === '') {
+                $("#errempdept").html("* Employee Department Required").show();
+            }
+            else {
+                $("#errempdept").html("* Employee Department Required").hide();
+            }
+        });
+        $("#DEPT").change(function () {
+            if ($("#DEPT").val() === '') {
+                $("#errempdept").html("* Employee Department Required").show();
+            }
+            else {
+                $("#errempdept").html("* Employee Department Required").hide();
+            }
+        });
+        $("#RPTMANAGER").change(function () {
+            if ($("#RPTMANAGER").val() === '') {
+                $("#erremprptmgr").html("* Employee Department Required").show();
+            }
+            else {
+                $("#erremprptmgr").html("* Employee Department Required").hide();
+            }
+        });
+
+        $("#EMASGDATE").change(function () {
+            if ($("#EMASGDATE").val() === '') {
+                $("#errempasgdate").html("* Assign Date Required").show();
+            }
+            else {
+                $("#errempasgdate").html("* Assign Date Required").hide();
+            }
+        });
+        $("#EMRECDATE").change(function () {
+            if ($("#EMRECDATE").val() === '') {
+                $("#erremprecdate").html("* Receive Date Required").show();
+            }
+            else {
+                $("#erremprecdate").html("* Receive Date Required").hide();
+            }
+        });
+        $("#EMPEMAIL").change(function () {
+            var testEmail = /^([A-Za-z0-9_\-\.])+\@@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+            if (testEmail.test($("#EMPEMAIL").val().trim())) {
+                $("#errempmail").html("* Enter Valid Email").hide();
+            }
+            else {
+                $("#errempmail").html("* Enter Valid Email").show();
+            }
+        });
+        $("#EMPCONT1").change(function () {
+            var pattern = /^\d{10}$/;
+            if (pattern.test($("#EMPCONT1").val().trim())) {
+                $("#errempcont1").html("* Enter 10 digit Phone Number").hide();
+            }
+            else {
+                $("#errempcont1").html("* Enter 10 digit Phone Number").show();
+            }
+        });
+        $("#EMPCONT2").change(function () {
+            var pattern = /^\d{10}$/;
+            if (pattern.test($("#EMPCONT2").val().trim())) {
+                $("#errempcont2").html("* Enter 10 digit Phone Number").hide();
+            }
+            else {
+                $("#errempcont2").html("* Enter 10 digit Phone Number").show();
+            }
+        });
+    });
+    function empchange() {
+
+        var SelectAssetd3Key;
+        SelectAssetd3Key = $("#EMPCODE").val().trim();
+        if (SelectAssetd3Key === "") {
+
+        }
+        else {
+
+            $.ajax({
+                type: "GET",
+                url: "/Assign/AsgGetD3",
+                dataType: "JSON",
+                data: { empcode: SelectAssetd3Key },
+                success: function (divempasg) {
+                    if (divempasg.empasgcode != null) {
+                        $("#errempcode").html("Employee already have a asset tag : " + divempasg.empasgasset).show();
+                        $("#EMPCODE").val("");
+                    }
+                    else { $("#errempcode").html("").hide(); }
+                }
+            });
+        }
+    };
+
+    function reqempval() {
+        var a, b, c, d, e, f, g, h, i, j, k;
+
+        if ($("#EMPCODE").val() === '') {
+            $("#errempcode").html("* Employee Code Required").show();
+            a = 0;
+        }
+        else {
+            $("#errempcode").html("* Employee Code Required").hide();
+            a = 1;
+        }
+        if ($("#EMPNAME").val() === '') {
+            $("#errempname").html("* Employee Name Required").show();
+            b = 0;
+        }
+        else {
+            $("#errempname").html("* Employee Name Required").hide();
+            b = 1;
+        }
+        if ($("#DESG").val() === '') {
+            $("#errempdesg").html("* Employee Designation Required").show();
+            c = 0;
+        }
+        else {
+            $("#errempdesg").html("* Employee Designation Required").hide();
+            c = 1;
+        }
+        if ($("#DEPT").val() === '') {
+            $("#errempdept").html("* Employee Department Required").show();
+            d = 0;
+        }
+        else {
+            $("#errempdept").html("* Employee Department Required").hide();
+            d = 1;
+        }
+        if ($("#DEPT").val() === '') {
+            $("#errempdept").html("* Employee Department Required").show();
+            e = 0;
+        }
+        else {
+            $("#errempdept").html("* Employee Department Required").hide();
+            e = 1;
+        }
+        if ($("#RPTMANAGER").val() === '') {
+            $("#erremprptmgr").html("* Employee Department Required").show();
+            f = 0;
+        }
+        else {
+            $("#erremprptmgr").html("* Employee Department Required").hide();
+            f = 1;
+        }
+
+        var testEmail = /^([A-Za-z0-9_\-\.])+\@@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+        if (testEmail.test($("#EMPEMAIL").val().trim())) {
+            $("#errempmail").html("* Enter Valid Email").hide();
+            g = 1;
+        }
+        else {
+            $("#errempmail").html("* Enter Valid Email").show();
+            g = 0;
+        }
+        var pattern = /^\d{10}$/;
+        if (pattern.test($("#EMPCONT1").val().trim())) {
+            $("#errempcont1").html("* Enter 10 digit Phone Number").hide();
+            h = 1;
+        }
+        else {
+            $("#errempcont1").html("* Enter 10 digit Phone Number").show();
+            h = 0;
+        }
+        var pattern1 = /^\d{10}$/;
+        if (pattern1.test($("#EMPCONT2").val().trim())) {
+            $("#errempcont2").html("* Enter 10 digit Phone Number").hide();
+            i = 1;
+        }
+        else {
+            $("#errempcont2").html("* Enter 10 digit Phone Number").show();
+            i = 0;
+        }
+        if ($("#EMASGDATE").val() === '') {
+            $("#errempasgdate").html("* Assign Date Required").show();
+            j = 0;
+        }
+        else {
+            $("#errempasgdate").html("* Assign Date Required").hide();
+            j = 1;
+        }
+
+
+        if ($("#EMRECDATE").val() === '') {
+            $("#erremprecdate").html("* Receive Date Required").show();
+            k = 0;
+        }
+        else {
+            $("#erremprecdate").html("* Receive Date Required").hide();
+            k = 1;
+        }
+        totval = a + b + c + d + e + f + g + h + i + j + k;
+    }
+
+    $("#addbtnempast").click(function (event) {
+        reqempval();
+        if (totval === 11) {
+            addempfn();
+        }
+        else { }
+    });
+
+    function addempfn()
+    {
+        $.ajax({
+            type: "POST",
+            url: "/Assign/AsgEmpIns",
+            data: $('#assetform').serialize(),
+            dataType: "text",
+            async: false,
+            success: function (data) {
+                alert("Inserted Sucessfully");
+                $("#div_empast_det").html(data);
+                document.getElementById('ASGEMPCREATE').style.display = 'none';
+            },
+            error: function () {
+                alert("Something went wrong");
+            }
+        });
+    }
+</script>

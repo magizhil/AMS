@@ -1,0 +1,80 @@
+C:\Users\gowtham.g\Desktop\KAI PROJECTS\AMS\AMS\AMS\bin\roslyn\csc.exe
+C:\Users\gowtham.g\Desktop\KAI PROJECTS\AMS\AMS\AMS\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\gowtham.g\Desktop\KAI PROJECTS\AMS\AMS\AMS\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\gowtham.g\Desktop\KAI PROJECTS\AMS\AMS\AMS\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\gowtham.g\Desktop\KAI PROJECTS\AMS\AMS\AMS\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\gowtham.g\Desktop\KAI PROJECTS\AMS\AMS\AMS\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\gowtham.g\Desktop\KAI PROJECTS\AMS\AMS\AMS\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\gowtham.g\Desktop\KAI PROJECTS\AMS\AMS\AMS\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\gowtham.g\Desktop\KAI PROJECTS\AMS\AMS\AMS\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\gowtham.g\Desktop\KAI PROJECTS\AMS\AMS\AMS\bin\roslyn\vbc.exe
+C:\Users\gowtham.g\Desktop\KAI PROJECTS\AMS\AMS\AMS\bin\roslyn\VBCSCompiler.exe
+C:\Users\gowtham.g\Desktop\KAI PROJECTS\AMS\AMS\AMS\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\gowtham.g\Desktop\KAI PROJECTS\AMS\AMS\AMS\bin\AMS.dll.config
+C:\Users\gowtham.g\Desktop\KAI PROJECTS\AMS\AMS\AMS\bin\AMS.dll
+C:\Users\gowtham.g\Desktop\KAI PROJECTS\AMS\AMS\AMS\bin\AMS.pdb
+C:\Users\gowtham.g\Desktop\KAI PROJECTS\AMS\AMS\AMS\bin\EntityFramework.dll
+C:\Users\gowtham.g\Desktop\KAI PROJECTS\AMS\AMS\AMS\bin\EntityFramework.SqlServer.dll
+C:\Users\gowtham.g\Desktop\KAI PROJECTS\AMS\AMS\AMS\bin\Microsoft.AspNet.Identity.Core.dll
+C:\Users\gowtham.g\Desktop\KAI PROJECTS\AMS\AMS\AMS\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\Users\gowtham.g\Desktop\KAI PROJECTS\AMS\AMS\AMS\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\gowtham.g\Desktop\KAI PROJECTS\AMS\AMS\AMS\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\gowtham.g\Desktop\KAI PROJECTS\AMS\AMS\AMS\bin\System.Web.Helpers.dll
+C:\Users\gowtham.g\Desktop\KAI PROJECTS\AMS\AMS\AMS\bin\System.Web.Mvc.dll
+C:\Users\gowtham.g\Desktop\KAI PROJECTS\AMS\AMS\AMS\bin\System.Web.Razor.dll
+C:\Users\gowtham.g\Desktop\KAI PROJECTS\AMS\AMS\AMS\bin\System.Web.Webpages.Deployment.dll
+C:\Users\gowtham.g\Desktop\KAI PROJECTS\AMS\AMS\AMS\bin\System.Web.Webpages.dll
+C:\Users\gowtham.g\Desktop\KAI PROJECTS\AMS\AMS\AMS\bin\System.Web.Webpages.Razor.dll
+C:\Users\gowtham.g\Desktop\KAI PROJECTS\AMS\AMS\AMS\bin\EntityFramework.xml
+C:\Users\gowtham.g\Desktop\KAI PROJECTS\AMS\AMS\AMS\bin\EntityFramework.SqlServer.xml
+C:\Users\gowtham.g\Desktop\KAI PROJECTS\AMS\AMS\AMS\bin\Microsoft.AspNet.Identity.Core.xml
+C:\Users\gowtham.g\Desktop\KAI PROJECTS\AMS\AMS\AMS\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+C:\Users\gowtham.g\Desktop\KAI PROJECTS\AMS\AMS\AMS\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\gowtham.g\Desktop\KAI PROJECTS\AMS\AMS\AMS\bin\System.Web.Razor.xml
+C:\Users\gowtham.g\Desktop\KAI PROJECTS\AMS\AMS\AMS\bin\System.Web.Webpages.xml
+C:\Users\gowtham.g\Desktop\KAI PROJECTS\AMS\AMS\AMS\bin\System.Web.Webpages.Deployment.xml
+C:\Users\gowtham.g\Desktop\KAI PROJECTS\AMS\AMS\AMS\bin\System.Web.Webpages.Razor.xml
+C:\Users\gowtham.g\Desktop\KAI PROJECTS\AMS\AMS\AMS\bin\System.Web.Helpers.xml
+C:\Users\gowtham.g\Desktop\KAI PROJECTS\AMS\AMS\AMS\bin\System.Web.Mvc.xml
+C:\Users\gowtham.g\Desktop\KAI PROJECTS\AMS\AMS\AMS\obj\Release\AMS.dll
+C:\Users\gowtham.g\Desktop\KAI PROJECTS\AMS\AMS\AMS\obj\Release\AMS.pdb
+C:\Users\gowtham.g\Desktop\Gowtham Desktop\Desktop\KAI PROJECTS\AMS\AMS\AMS\bin\roslyn\csc.exe
+C:\Users\gowtham.g\Desktop\Gowtham Desktop\Desktop\KAI PROJECTS\AMS\AMS\AMS\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\gowtham.g\Desktop\Gowtham Desktop\Desktop\KAI PROJECTS\AMS\AMS\AMS\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\gowtham.g\Desktop\Gowtham Desktop\Desktop\KAI PROJECTS\AMS\AMS\AMS\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\gowtham.g\Desktop\Gowtham Desktop\Desktop\KAI PROJECTS\AMS\AMS\AMS\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\gowtham.g\Desktop\Gowtham Desktop\Desktop\KAI PROJECTS\AMS\AMS\AMS\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\gowtham.g\Desktop\Gowtham Desktop\Desktop\KAI PROJECTS\AMS\AMS\AMS\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\gowtham.g\Desktop\Gowtham Desktop\Desktop\KAI PROJECTS\AMS\AMS\AMS\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\gowtham.g\Desktop\Gowtham Desktop\Desktop\KAI PROJECTS\AMS\AMS\AMS\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\gowtham.g\Desktop\Gowtham Desktop\Desktop\KAI PROJECTS\AMS\AMS\AMS\bin\roslyn\vbc.exe
+C:\Users\gowtham.g\Desktop\Gowtham Desktop\Desktop\KAI PROJECTS\AMS\AMS\AMS\bin\roslyn\VBCSCompiler.exe
+C:\Users\gowtham.g\Desktop\Gowtham Desktop\Desktop\KAI PROJECTS\AMS\AMS\AMS\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\gowtham.g\Desktop\Gowtham Desktop\Desktop\KAI PROJECTS\AMS\AMS\AMS\bin\AMS.dll.config
+C:\Users\gowtham.g\Desktop\Gowtham Desktop\Desktop\KAI PROJECTS\AMS\AMS\AMS\bin\AMS.dll
+C:\Users\gowtham.g\Desktop\Gowtham Desktop\Desktop\KAI PROJECTS\AMS\AMS\AMS\bin\AMS.pdb
+C:\Users\gowtham.g\Desktop\Gowtham Desktop\Desktop\KAI PROJECTS\AMS\AMS\AMS\bin\EntityFramework.dll
+C:\Users\gowtham.g\Desktop\Gowtham Desktop\Desktop\KAI PROJECTS\AMS\AMS\AMS\bin\EntityFramework.SqlServer.dll
+C:\Users\gowtham.g\Desktop\Gowtham Desktop\Desktop\KAI PROJECTS\AMS\AMS\AMS\bin\Microsoft.AspNet.Identity.Core.dll
+C:\Users\gowtham.g\Desktop\Gowtham Desktop\Desktop\KAI PROJECTS\AMS\AMS\AMS\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\Users\gowtham.g\Desktop\Gowtham Desktop\Desktop\KAI PROJECTS\AMS\AMS\AMS\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\gowtham.g\Desktop\Gowtham Desktop\Desktop\KAI PROJECTS\AMS\AMS\AMS\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\gowtham.g\Desktop\Gowtham Desktop\Desktop\KAI PROJECTS\AMS\AMS\AMS\bin\System.Web.Helpers.dll
+C:\Users\gowtham.g\Desktop\Gowtham Desktop\Desktop\KAI PROJECTS\AMS\AMS\AMS\bin\System.Web.Mvc.dll
+C:\Users\gowtham.g\Desktop\Gowtham Desktop\Desktop\KAI PROJECTS\AMS\AMS\AMS\bin\System.Web.Razor.dll
+C:\Users\gowtham.g\Desktop\Gowtham Desktop\Desktop\KAI PROJECTS\AMS\AMS\AMS\bin\System.Web.Webpages.Deployment.dll
+C:\Users\gowtham.g\Desktop\Gowtham Desktop\Desktop\KAI PROJECTS\AMS\AMS\AMS\bin\System.Web.Webpages.dll
+C:\Users\gowtham.g\Desktop\Gowtham Desktop\Desktop\KAI PROJECTS\AMS\AMS\AMS\bin\System.Web.Webpages.Razor.dll
+C:\Users\gowtham.g\Desktop\Gowtham Desktop\Desktop\KAI PROJECTS\AMS\AMS\AMS\bin\EntityFramework.xml
+C:\Users\gowtham.g\Desktop\Gowtham Desktop\Desktop\KAI PROJECTS\AMS\AMS\AMS\bin\EntityFramework.SqlServer.xml
+C:\Users\gowtham.g\Desktop\Gowtham Desktop\Desktop\KAI PROJECTS\AMS\AMS\AMS\bin\Microsoft.AspNet.Identity.Core.xml
+C:\Users\gowtham.g\Desktop\Gowtham Desktop\Desktop\KAI PROJECTS\AMS\AMS\AMS\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+C:\Users\gowtham.g\Desktop\Gowtham Desktop\Desktop\KAI PROJECTS\AMS\AMS\AMS\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\gowtham.g\Desktop\Gowtham Desktop\Desktop\KAI PROJECTS\AMS\AMS\AMS\bin\System.Web.Razor.xml
+C:\Users\gowtham.g\Desktop\Gowtham Desktop\Desktop\KAI PROJECTS\AMS\AMS\AMS\bin\System.Web.Webpages.xml
+C:\Users\gowtham.g\Desktop\Gowtham Desktop\Desktop\KAI PROJECTS\AMS\AMS\AMS\bin\System.Web.Webpages.Deployment.xml
+C:\Users\gowtham.g\Desktop\Gowtham Desktop\Desktop\KAI PROJECTS\AMS\AMS\AMS\bin\System.Web.Webpages.Razor.xml
+C:\Users\gowtham.g\Desktop\Gowtham Desktop\Desktop\KAI PROJECTS\AMS\AMS\AMS\bin\System.Web.Helpers.xml
+C:\Users\gowtham.g\Desktop\Gowtham Desktop\Desktop\KAI PROJECTS\AMS\AMS\AMS\bin\System.Web.Mvc.xml
+C:\Users\gowtham.g\Desktop\Gowtham Desktop\Desktop\KAI PROJECTS\AMS\AMS\AMS\obj\Release\AMS.dll
+C:\Users\gowtham.g\Desktop\Gowtham Desktop\Desktop\KAI PROJECTS\AMS\AMS\AMS\obj\Release\AMS.pdb

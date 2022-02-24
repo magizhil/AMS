@@ -1,0 +1,44 @@
+﻿@model IList<AMS.Models.AstAsgMultiview>
+<div class="w3-responsive">
+    <table class="w3-table-all" border="1">
+        <thead>
+            <tr class="w3-teal">
+                <th>View</th>
+                <th>Asset Tag</th>
+                <th>Category</th>
+                <th>Brand</th>
+                <th>Model</th>
+                <th>Serial No</th>
+                <th>Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in ViewBag.AssignDet2)
+            {
+                <tr>
+                    <td>
+                        @Html.ActionLink("View", "View", new { catcode = item.ID })
+                    </td>
+                    <td>
+                        @item.ASSETTAG
+                    </td>
+                    <td>
+                        @item.CATGNAME
+                    </td>
+                    <td>
+                        @item.BRAND
+                    </td>
+                    <td>
+                        @item.MDLNAME
+                    </td>
+                    <td>
+                        @item.SLNO
+                    </td>
+                    <td>
+                        @item.QTY
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

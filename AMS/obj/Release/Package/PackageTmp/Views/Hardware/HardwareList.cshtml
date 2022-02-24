@@ -1,0 +1,163 @@
+﻿@model IEnumerable<AMS.Models.HwAsset>
+
+@{
+    ViewBag.Title = "Hardware List";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="w3-container">
+    <header class="w3-container w3-card-4  w3-teal">
+        <a href="~/Hardware/HwAssetDetail" class="w3-button w3-xlarge w3-circle w3-theme-action w3-right w3-light-green" style="top:97px;right:18px;position:fixed">+</a>
+        <h3>Hardware Details</h3>
+    </header>
+    <div class="w3-row">
+
+        <div class="w3-border">
+
+            <div class="w3-container w3-responsive">
+
+                <table class="w3-table w3-striped w3-border" id="HardView">
+                    <thead>
+                        <tr class="w3-blue">
+                            <th>Edit</th>
+                            @*<th>View</th>*@
+                            <th>
+                                Category
+                            </th>
+                            <th>
+                                Vendor_Name
+                            </th>
+                            <th>
+                                Brand
+                            </th>
+                            <th>
+                                Model_Name
+                            </th>
+                            <th>
+                                Model No
+                            </th>
+                            <th>
+                                Serial No
+                            </th>
+                            <th>
+                                Configuration
+                            </th>
+                            <th>
+                                Invoice Number
+                            </th>
+                            <th>
+                                Service Tag
+                            </th>
+                            <th>
+                                HDD
+                            </th>
+                            <th>
+                                RAM
+                            </th>
+                            <th>
+                                Processor
+                            </th>
+                            <th>
+                                Geo Location
+                            </th>
+                            <th>
+                                Physical Location
+                            </th>
+                            <th>
+                                Asset Number
+                            </th>
+                            <th>
+                                Asset Status
+                            </th>
+                            <th>
+                                Asset Value
+                            </th>
+                            
+                            
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.ActionLink("Edit", "HardwareGet", new { hardcode = item.ASSETTAG })
+                                </td>
+                                @*<td>@Html.ActionLink("View", "SoftwareView", new { softcode = item.ASSETTAG })</td>*@
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.mscatsw.CATGDESC)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.msvendsw.VENDNAME)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.BRAND)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.MDLNAME)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.MDLNO)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.SLNO)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem=>item.CONFIGURATION)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.INVOICENUMBER)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.SERTTAG)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.HDD)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.RAM)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.PROCESSOR)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.GEOLOC)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.PHLOC)
+                                </td>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ASSTNO)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ASSTSTS)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ASSETVAL)
+                                </td>
+                                
+
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $("#HardView").dataTable({
+            "scrollY": 300,
+            "scrollX": true,
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ]
+        });
+    });
+</script>

@@ -1,0 +1,54 @@
+﻿@model IEnumerable<AMS.Models.ProcessList>
+
+@Html.Label("Process Detail", new { @class = "w3-label" })
+<br />
+<table class="w3-table w3-striped w3-bordered w3-card-4">
+    <thead>
+        <tr class="w3-blue">
+            
+            <th class="tableHeader">Title</th>
+            <th class="tableHeader">Description</th>
+            <th class="tableHeader">Sort Order</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.CHKLISTTIT</td>
+            <td>@item.CHKLISTDESC</td>
+            <td>@item.SORTORD</td>
+            <td>
+                @Html.ActionLink("Edit", "prslistGet", new { listname = item.CHKLISTTIT })
+            </td>
+            <td>
+                <a class="a_delete_list" id="@(item.CHKLISTID)">Delete</a>
+            </td>
+        </tr>
+    }
+</table>
+
+<script>
+    $(".a_delete_list").click(function () {
+
+        var identities = (this).id;
+
+        $.ajax({
+            type: 'POST',
+            contentType: "application/json; charset=utf-8",
+            url: '/Process/Delprslist',
+            data: JSON.stringify({ "id": identities }),
+            contentType: "application/json; charset=utf-8",
+            success: function (message) {
+                alert(message);
+                location.reload();
+                //$("#vendor_det").html(data);
+            },
+            fail: function (message) {
+
+            }
+        });
+    });
+
+</script>

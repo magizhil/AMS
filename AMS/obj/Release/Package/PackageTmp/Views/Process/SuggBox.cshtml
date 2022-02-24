@@ -1,0 +1,81 @@
+﻿@model AMS.Models.PrsUsersug
+
+@{
+    ViewBag.Title = "Suggestion Box";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@*<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery-1.8.0.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script type="text/javascript" src="~/Js/Validation.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>*@
+
+
+<div class="w3-container">
+    <header class="w3-container w3-card-4 w3-theme w3-teal">
+        <h3>Suggestion Box</h3>
+    </header>
+    <div class="w3-container  w3-border">
+        <div class="w3-row-padding">
+            <div class="w3-col l4"><p></p></div>
+            <div class="w3-col l4">
+                <form id="prssugg">
+                    <p>
+                        <h3 class="w3-text-teal">
+                            KAI Welcomes users Suggestions to Improve App specifications
+                        </h3>
+                    </p>
+                        <p>
+                            <label class="w3-text-teal">Suggestion and Comments</label>
+                            @Html.TextAreaFor(m => m.SUGGESTION, new { @class = "w3-input", @style = "height:150px;", @id = "SUGGESTION" })
+                        </p>
+                        <p>
+                            <button type="button" class="w3-button w3-blue w3-round w3-hover-teal" id="addbtn">Submit</button>
+                        </p>
+</form>
+            </div>
+            <div class="w3-col l4"><p></p></div>
+        </div>
+
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $("#addbtn").click(function () {
+            if ($("#SUGGESTION").val().length > 50) {
+                
+                addfn();
+            }
+            else {
+                
+                alert("Enter minimum 50 characters")
+            }
+        });
+        function addfn() {
+            $.ajax({
+                type: 'POST',
+                contentType: "application/json; charset=utf-8",
+                url: '/Process/SuggBoxIns',
+                data: JSON.stringify({ "sugg": $("#SUGGESTION").val() }),
+                contentType: "application/json; charset=utf-8",
+                success: function (message) {
+                    alert(message);
+                    window.location.href = 'ProcessView';
+                    //location.reload();
+                    //$("#vendor_det").html(data);
+                },
+                fail: function (message) {
+
+                }
+            });
+
+        }
+    });
+</script>
+
+

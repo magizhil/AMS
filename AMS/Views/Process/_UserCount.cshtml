@@ -1,0 +1,20 @@
+﻿@model IEnumerable<AMS.Models.PrsUserread>
+
+@Html.Label("Reading Count", new { @class = "w3-label" })
+<br />
+<table class="w3-table w3-striped w3-bordered w3-card-4">
+    <thead>
+        <tr class="w3-blue">
+            <th class="tableHeader">User Name</th>
+            <th class="tableHeader">Read Count</th>
+            <th></th>
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.USERNAME</td>
+            <td>@item.READCOUNT</td>
+        </tr>
+    }
+</table>

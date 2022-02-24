@@ -1,0 +1,88 @@
+﻿@model IEnumerable<AMS.Models.ProcessGrp>
+@{
+    ViewBag.Title = "Process List";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+@*<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>*@
+<div class="w3-container">
+    <header class="w3-container w3-card-4 w3-theme w3-teal">
+        <a href="~/Process/PrslistAdd" class="w3-button w3-xlarge" style="top:97px;right:18px;position:fixed">+</a>
+        <h3>Process List</h3>
+    </header>
+</div>
+<div class="w3-row">
+    <div class="w3-col l2">
+        <div style="float:left;margin-left:30px">
+            <table>
+                <tr>
+                    @Html.Label("Process Group", new { @class = "w3-label" })
+
+                    <td>
+                        <select id="sltGroup" class="sltStyle">
+                            <option selected="selected">Select Group</option>
+                            @*Iterating Course Model*@
+                            @foreach (var item in Model)
+                            {
+                                <option>
+                                    @item.CHKGRPNAME
+                                </option>
+                            }
+                        </select>
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+    </div>
+    <div class="w3-col l10"><div style="float:left;margin-left:20px">
+    <div id="processValueSection">
+        <div id="processValueTable"></div>
+    </div>
+</div>
+</div>
+</div>
+
+    
+
+<script>
+        $(document).ready(function () {
+
+            $("#processValueSection").fadeOut(0);
+        });
+
+        var selectedGroupeName;
+
+        $("#sltGroup").change(function () {
+
+            selectedGroupeName = $("#sltGroup").val().trim();
+
+            if (selectedGroupeName === "Select Group") {
+
+                $("#processValueSection").fadeOut();
+            }
+            else {
+
+                getProcessTable();
+
+                $("#processValueSection").fadeIn();
+            }
+        });
+
+        function getProcessTable() {
+            $.ajax({
+                // Get Student PartialView
+                url: "/Process/prslistview",
+                type: 'Get',
+                data: { grpid: selectedGroupeName },
+                //data : {ddlValue: $('#sltGroup').val(), txtName: $('#txtparam').val()},
+                success: function (data) {
+                    $("#processValueTable").empty().append(data);
+                },
+                error: function () {
+                    alert("something seems wrong");
+                }
+            });
+        }
+
+</script>
+

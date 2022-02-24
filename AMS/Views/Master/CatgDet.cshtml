@@ -1,0 +1,167 @@
+﻿@model AMS.Models.MsCategory
+
+@{
+    ViewBag.Title = "Category Detail";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<div class="w3-container">
+    <div class="w3-row">
+        <div class="w3-col l4"><p></p></div>
+        <div class="w3-col l4  w3-border">
+            <header class="w3-container w3-card-4 w3-theme w3-teal" style="position:relative">
+                <h3>Category Detail</h3>
+            </header>
+            <form id="category">
+                <div class="w3-container">
+                    <p>
+                        <label class="w3-text-teal">Category Name</label>
+                    </p>
+                    <p>
+                        @Html.TextBoxFor(m => m.CATGNAME, new { @id = "CATGNAME", @style = "width:270px;text-transform:uppercase;border:0px 0px 1px 0px;" })
+                        &nbsp;&nbsp;
+                        <a onclick="FindCatg();"><img src="~/Images/search.png" width="20" height="20" /></a>
+                        &nbsp;&nbsp;
+                        <a onclick="NewClick();"><img src="~/Images/new.png" width="20" height="20" /></a>
+                        <span id="catgnameerr" class="w3-text-red"></span>
+                    </p>
+                    <p>
+                        <label class="w3-text-teal">Category Description</label>
+                        @Html.TextBoxFor(m => m.CATGDESC, new { @class = "w3-input", @id = "CATGDESC" })
+                        <span id="catgdescerr" class="w3-text-red"></span>
+                    </p>
+                    <label class="w3-text-teal">Category Type</label>
+                    @Html.DropDownListFor(m => m.CATGTYPE, new List<SelectListItem>
+                        { new SelectListItem{Text="Hardware", Value="1",Selected=true},
+                          new SelectListItem{Text="Sofware", Value="2"},
+                          new SelectListItem{Text="Others", Value="3"}}, new { @class = "w3-input" ,@id= "CATGTYPE" })
+                    <p>
+                        <label class="w3-text-teal">Status</label>
+                        <br />
+                        @Html.RadioButtonFor(m => m.INACTIVE, "0", new { @checked = "", @id = "INACTIVE1" }) &nbsp;&nbsp; <label>Active </label>&nbsp;&nbsp;
+
+                        @Html.RadioButtonFor(m => m.INACTIVE, "1", new { @id = "INACTIVE2" }) &nbsp;&nbsp; <label>Inactive</label>
+                    </p>
+                    <p>
+                        <label class="w3-text-teal">Last Modified By</label>
+                        @Html.TextBoxFor(m => m.DATELASTMN, new { @class = "w3-input", @id = "DATELASTMN", @style = "background-color:#e6e6e6;", @readonly = "true" })
+                    </p>
+                    <p class="w3-right">
+                        <button type="button" class="w3-button w3-blue w3-round w3-hover-teal" id="addbtn">Add</button>
+                    </p>
+                </div>
+            </form>
+        </div>
+        <div class="w3-col l4"></div>
+    </div>
+
+</div>
+
+<script>
+    $(document).ready(function () {
+        var tot;
+        $("#CATGNAME").change(function () {
+            if ($("#CATGNAME").val() === '') {
+                $("#catgnameerr").html("Category Name Required").show();
+            }
+            else { $("#catgnameerr").html("Category Name Required").hide(); }
+        });
+        $("#CATGDESC").change(function () {
+            if ($("#CATGDESC").val() === '') {
+                $("#catgdescerr").html("Category Description Required").show();
+            }
+            else { $("#catgdescerr").html("Category Description Required").hide(); }
+        });
+        function reqval() {
+            var a, b;
+            if ($("#CATGNAME").val() === '') {
+                $("#catgnameerr").html("Category Name Required").show();
+                a = 0;
+            }
+            else {
+                $("#catgnameerr").html("Category Name Required").hide();
+                a = 1;
+            }
+            if ($("#CATGDESC").val() === '') {
+                $("#catgdescerr").html("Category Description Required").show();
+                b = 0;
+            }
+            else
+            {
+                $("#catgdescerr").html("Category Description Required").hide();
+                b = 1;
+            }
+            tot = a + b;
+        }
+
+        function addfn() {
+            $.ajax({
+                type: "POST",
+                url: "/Master/CatgIns",
+                data: $('#category').serialize(),
+                dataType: 'text',
+                async: true,
+                success: function (message) {
+                    alert(message);
+                    getcatgTable();
+                },
+                error: function () {
+                    alert("Something went wrong");
+                }
+            });
+        }
+        $("#addbtn").click(function (event) {
+            
+            reqval();
+            if (tot === 2) {
+                addfn();
+            }
+            else {
+
+            }
+        });
+    });
+    $("#CATGNAME").change(function () {
+        selectcatgCode = $("#CATGNAME").val().trim();
+        if (selectcatgCode === "") {
+
+        }
+        else {
+            getcatgTable();
+        }
+    });
+    function getcatgTable() {
+
+        $.ajax({
+            url: "/Master/CatgGet",
+            type: 'Get',
+            data: { catcode: selectcatgCode },
+            success: function (data) {
+
+                $("#overright").empty().append(data);
+
+                if ($("#DATELASTMN").val().trim() !== "") {
+                    $("#addbtn").html("Save");
+                }
+                else {
+
+                    $("#CATGNAME").val(selectcatgCode);
+                    $("#ITEMDESC").focus();
+                    $("#addbtn").html("Add");
+                }
+            },
+            error: function () {
+                alert("something seems wrong");
+                $("#addbtn").html("Add");
+            }
+        });
+    }
+    function NewClick() {
+        $("#CATGNAME").val('');
+        $("#CATGDESC").val('');
+        $("#DATELASTMN").val('');
+        $("#INACTIVE1").attr('checked', true);
+        $("#CATGTYPE").val('Hardware');
+    }
+</script>

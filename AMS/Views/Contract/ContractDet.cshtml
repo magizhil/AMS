@@ -1,0 +1,423 @@
+﻿@model AMS.Models.CntDetails
+
+@{
+    ViewBag.Title = "ContractDet";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<div class="w3-container">
+    <header class="w3-container w3-card-4 w3-theme w3-teal">
+        <h3>Contract Details</h3>
+    </header>
+    <div class="w3-container  w3-border">
+        <form id="contract">
+            <div class="w3-row-padding">
+                <div class="w3-col l3">
+                    <p>
+                        <label class="w3-text-teal">Contract Number</label>
+                    </p>
+                    <p>
+                        @Html.TextBoxFor(m => m.CNTNUMBER, new { @id = "CNTNUMBER", @style = "width:200px;text-transform:uppercase;border:0px 0px 1px 0px;background-color:#efefef;", @readonly="true" })
+                        &nbsp;&nbsp;
+                        <a onclick="NewClick();"><img src="~/Images/new.png" width="20" height="20" /></a>
+                    </p>
+                    <p>
+                        <label class="w3-text-teal">Contract Name</label>
+                        @Html.TextBoxFor(m => m.CNTNAME, new { @class = "w3-input", @id = "CNTNAME" })
+                        <span id="errcntname" class="w3-text-red"></span>
+                    </p>
+                    <p>
+                        <label class="w3-text-teal">Contract Type</label>
+                        @Html.DropDownListFor(m => m.cnttypedet.CNTTYPE, new SelectList(ViewBag.cnttype, "CNTTYPE", "CNTDESC"), "--- Select ---", new { @class = "w3-input", @id = "CNTTYPE", @style = "background-color:#f9f3b6" })
+                        <span id="cnttype" class="w3-text-red"></span>
+                    </p>
+                    <p>
+                        <label class="w3-text-teal">Contract Group</label>
+                        @Html.DropDownListFor(m => m.CNTGRP, new List<SelectListItem>
+                        { new SelectListItem{Text="Hardware", Value="1",Selected=true},
+                          new SelectListItem{Text="Sofware", Value="2"},
+                          new SelectListItem{Text="Service", Value="3"}}, new { @class = "w3-input", @id = "CNTGRP" })
+                        <span id="cntgrp" class="w3-text-red"></span>
+                    </p>
+                    <p>
+                        <label class="w3-text-teal">Vendor ID</label>
+                        @Html.TextBoxFor(m => m.VENDID, new { @class = "w3-input", @id = "VENDID", @style = "background-color:#f9f3b6" })
+                        <span id="errvendid" class="w3-text-red"></span>
+                    </p>
+                    <p>
+                        <label class="w3-text-teal">Vendor Name</label>
+                        @Html.TextBoxFor(m => m.VENDNAME, new { @class = "w3-input", @id = "VENDNAME" })
+                        <span id="errvendname" class="w3-text-red"></span>
+                    </p>
+                    
+                    
+                </div>
+                <div class="w3-col l3 ">
+                    <p>
+                        <label class="w3-text-teal">Phone Number</label>
+                        @Html.TextBoxFor(m => m.PHNO, new { @class = "w3-input", @id = "PHNO" })
+                        <span id="errphno" class="w3-text-red"></span>
+                    </p>
+                    <p>
+                        <label class="w3-text-teal">Email</label>
+                        @Html.TextBoxFor(m => m.EMAIL, new { @class = "w3-input", @id = "EMAIL" })
+                        <span id="erremail" class="w3-text-red"></span>
+                    </p>
+                    <p>
+                        <label class="w3-text-teal">Address</label>
+                        @Html.TextAreaFor(m => m.VENDADDR, new { @class = "w3-input", @style = "height:117px;", @id = "VENDADDR" })
+                        <span id="errvendaddr" class="w3-text-red"></span>
+                    </p>
+                    <p>
+                        <label class="w3-text-teal">Signing Location</label>
+                        @Html.TextBoxFor(m => m.SIGNLOC, new { @class = "w3-input", @id = "SIGNLOC", @style = "background-color:#f9f3b6" })
+                        <span id="errsignloc" class="w3-text-red"></span>
+                    </p>
+                    <p>
+                        <label class="w3-text-teal">Execution Location</label>
+                        @Html.TextBoxFor(m => m.EXECLOC, new { @class = "w3-input", @id = "EXECLOC", @style = "background-color:#f9f3b6" })
+                        <span id="errexecloc" class="w3-text-red"></span>
+                    </p>
+                    <p class="w3-right">
+                        <button type="button" class="w3-button w3-blue w3-round w3-hover-teal" id="addbtn">Submit</button>
+
+                    </p>
+                    
+                </div>
+                <div class="w3-col l3 ">
+                    <p>
+                        <label class="w3-text-teal">Renewal Type</label>
+                        <br />
+                        <br />
+                        @Html.RadioButtonFor(m => m.RENEWTYPE, "1", new { @checked = "", @id = "RENEWTYPE1" }) &nbsp;&nbsp; <label>Manual </label>&nbsp;&nbsp;
+                        @Html.RadioButtonFor(m => m.RENEWTYPE, "2", new { @checked = "", @id = "RENEWTYPE2" }) &nbsp;&nbsp; <label>Auto </label>
+                        <span id="cntprd" class="w3-text-red"></span>
+                    </p>
+                    <p>
+                        <label class="w3-text-teal">Contract Period</label>
+                        @Html.DropDownListFor(m => m.CNTPRD, new List<SelectListItem>
+                        { new SelectListItem{Text="6 Months", Value="6",Selected=true},
+                          new SelectListItem{Text="1 Years", Value="12"},
+                          new SelectListItem{Text="2 Years", Value="24"},
+                          new SelectListItem{Text="3 Years", Value="36"},
+                          new SelectListItem{Text="4 Years", Value="48"},
+                          new SelectListItem{Text="5 Years", Value="60"},
+                          new SelectListItem{Text="6 Years", Value="72"},
+                          new SelectListItem{Text="7 Years", Value="84"},
+                          new SelectListItem{Text="8 Years", Value="96"},
+                          new SelectListItem{Text="9 Years", Value="108"},
+                          new SelectListItem{Text="10 Years", Value="120"}}, new { @class = "w3-input", @id = "CNTPRD" })
+                        <span id="cntprd" class="w3-text-red"></span>
+                    </p>
+                    <p>
+                        <label class="w3-text-teal">Contract Info</label>
+                        @Html.TextAreaFor(m => m.CNTINFO, new { @class = "w3-input", @style = "height:117px;", @id = "CNTINFO" })
+                        <span id="errcntinfo" class="w3-text-red"></span>
+                    </p>
+                    <p>
+                        <label class="w3-text-teal">Remakrs & Notes</label>
+                        @Html.TextAreaFor(m => m.CNTPURPOSE, new { @class = "w3-input", @style = "height:117px;", @id = "CNTPURPOSE" })
+                        <span id="errcntpurpose" class="w3-text-red"></span>
+                    </p>
+                    
+                    
+                </div>
+                <div class="w3-col l3 ">
+                    <p>
+                        <label class="w3-text-teal">Year</label>
+                        
+                        @*@Html.DropDownList("Years", new SelectList(ViewBag.Years as System.Collections.IEnumerable, Model.CNTYEAR))*@
+                        @Html.DropDownListFor(m => m.CNTYEAR, new SelectList(ViewBag.Years), "--- Select ---", new { @class = "w3-input", @id = "CNTYEAR", @style = "background-color:#f9f3b6" })
+                        @*@Html.TextBoxFor(m => m.CNTYEAR, new { @class = "w3-input year", @id = "CNTYEAR" })
+                        @Html.DropDownListFor(m => m.CNTPRD, new List<SelectListItem>
+                        { new SelectListItem{Text="year", Value="year"}}, new { @class = "w3-input year", @id = "CNTPRD" })*@
+                        <span id="errcntyr" class="w3-text-red"></span>
+                    </p>
+                    <p>
+                        <label class="w3-text-teal">Contract Value</label>
+                        @Html.TextBoxFor(m => m.CNTVALUE, new { @class = "w3-input",@style= "background-color:#f9f3b6", @id = "CNTVALUE" , @type="number" })
+                        <span id="errcntval" class="w3-text-red"></span>
+                    </p>
+
+                    <p>
+                        <label class="w3-text-teal">Start Date</label>
+                        @Html.TextBoxFor(m => m.CNTSTARTDT, new { @class = "w3-input datepicker", @style = "background-color:#f9f3b6", @id = "CNTSTARTDT" })
+                        <span id="errcntstdt" class="w3-text-red"></span>
+                    </p>
+                    <p>
+                        <label class="w3-text-teal">End Date</label>
+                        @Html.TextBoxFor(m => m.CNTENDDT, new { @class = "w3-input datepicker", @style = "background-color:#f9f3b6", @id = "CNTENDDT" })
+                        <span id="errcntendt" class="w3-text-red"></span>
+                    </p>
+                    <p>
+                        <label class="w3-text-teal">Status</label>
+                        <br />
+                        <br />
+                        @Html.RadioButtonFor(m => m.CNTSTATUS, "0", new { @checked = "", @id = "CNTSTATUS1" }) &nbsp;&nbsp; <label>Active </label>&nbsp;&nbsp;
+                        @Html.RadioButtonFor(m => m.CNTSTATUS, "1", new { @checked = "", @id = "CNTSTATUS2" }) &nbsp;&nbsp; <label>Inactive </label>
+                        <span id="errcntsts" class="w3-text-red"></span>
+
+                    </p>
+                    <p>
+                        <label class="w3-text-teal">Last Modified</label>
+                        @Html.TextBoxFor(m => m.DATELASTMN, new { @class = "w3-input", @id = "DATELASTMN" ,@style= "background-color:#efefef;",@readonly="true" })
+                        <span id="errcntdtlast" class="w3-text-red"></span>
+                    </p>
+                </div>
+                </div>
+        </form>
+
+    </div>
+</div>
+
+<script>
+    var totval;
+    $(document).ready(function () {
+        initdatepicker();
+    });
+    function initdatepicker() {
+        $(".datepicker").datepicker({
+            dateFormat: 'dd-mm-yy',
+            changeMonth: true,
+            changeYear: true
+        });
+    }
+    function inityearpicker()
+    {
+        var minOffset = 0, maxOffset = 100;
+        var thisYear = (new Date()).getFullYear();
+        for (var i = minOffset; i <= maxOffset; i++) {
+            var year = thisYear + i;
+            $('<option>', { value: year, text: year }).appendTo(".year");
+        }
+    }
+
+
+    $(document).ready(function () {
+        $("#VENDID").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "/Contract/GetVendorDet",
+                    type: "POST",
+                    dataType: "json",
+                    data: { vendid: request.term },
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return { label: item.VENDID + ' ' + item.VENDNAME , value: item.VENDID };
+                        }))
+
+                    }
+                })
+            },
+            messages: {
+                noResults: "",
+                results: function (count) {
+                    return count + (count > 1 ? ' results' : ' result ') + ' found';
+                }
+            }
+        });
+
+
+        $("#CNTTYPE").change(function () {
+            if ($("#CNTTYPE").val() == '') {
+                $("#cnttype").html("Select Contract Type").show();
+            }
+            else {
+                $("#cnttype").html("Select Contract Type").hide();
+            }
+        });
+
+        $("#VENDID").change(function () {
+            if ($("#VENDID").val() === '') {
+                $("#errvendid").html("Select Vendor").show();
+            }
+            else {
+                $("#errvendid").html("Select vendor").hide();
+            }
+        });
+        $("#SIGNLOC").change(function () {
+            if ($("#SIGNLOC").val() === '') {
+                $("#errsignloc").html("Enter Signing Location").show();
+            }
+            else {
+                $("#errsignloc").html("Enter Signing Location").hide();
+            }
+        });
+        $("#EXECLOC").change(function () {
+            if ($("#EXECLOC").val() === '') {
+                $("#errexecloc").html("Enter Execution Location").show();
+            }
+            else {
+                $("#errexecloc").html("Enter Execution Location").hide();
+            }
+        });
+
+        $("#CNTYEAR").change(function () {
+            if ($("#CNTYEAR").val() === '') {
+                $("#errcntyr").html("Select Year").show();
+            }
+            else {
+                $("#errcntyr").html("Select Year").hide();
+            }
+        });
+
+        $("#CNTVALUE").change(function () {
+            if ($("#CNTVALUE").val() === '') {
+                $("#errcntval").html("Enter Contract Value").show();
+            }
+            else {
+                $("#errcntval").html("Enter Contract Value").hide();
+            }
+        });
+        $("#CNTSTARTDT").change(function () {
+            if ($("#CNTSTARTDT").val() === '') {
+                $("#errcntstdt").html("Enter Start Date").show();
+            }
+            else {
+                $("#errcntstdt").html("Enter Start date").hide();
+            }
+        });
+        $("#CNTENDDT").change(function () {
+            if ($("#CNTENDDT").val() === '') {
+                $("#errcntendt").html("Enter End Date").show();
+            }
+            else {
+                $("#errcntendt").html("Enter End date").hide();
+            }
+        });
+
+        $("#addbtn").click(function (event) {
+
+            reqval();
+
+            if (totval === 8) {
+                adddata();
+            }
+            else {
+                alert("Not OK");
+            }
+        });
+
+    });
+
+    function reqval()
+    {
+        var a, b, c, d, e, f, g, h;
+
+        if ($("#CNTTYPE").val() == '') {
+            $("#cnttype").html("Select Contract Type").show();
+            a = 0;
+            }
+            else {
+            $("#cnttype").html("Select Contract Type").hide();
+            a = 1;
+            }
+            if ($("#VENDID").val() === '') {
+                $("#errvendid").html("Select Vendor").show();
+                b = 0;
+            }
+            else {
+                $("#errvendid").html("Select vendor").hide();
+                b = 1;
+            }
+            if ($("#SIGNLOC").val() === '') {
+                $("#errsignloc").html("Enter Signing Location").show();
+                c = 0;
+            }
+            else {
+                $("#errsignloc").html("Enter Signing Location").hide();
+                c = 1;
+            }
+            if ($("#EXECLOC").val() === '') {
+                $("#errexecloc").html("Enter Execution Location").show();
+                d = 0;
+            }
+            else {
+                $("#errexecloc").html("Enter Execution Location").hide();
+                d = 1;
+            }
+            if ($("#CNTYEAR").val() === '') {
+                $("#errcntyr").html("Select Year").show();
+                e = 0;
+            }
+            else {
+                $("#errcntyr").html("Select Year").hide();
+                e = 1;
+            }
+            if ($("#CNTVALUE").val() === '') {
+                $("#errcntval").html("Enter Contract Value").show();
+                f = 0;
+            }
+            else {
+                $("#errcntval").html("Enter Contract Value").hide();
+                f = 1;
+            }
+            if ($("#CNTSTARTDT").val() === '') {
+                $("#errcntstdt").html("Enter Start Date").show();
+                g = 0;
+            }
+            else {
+                $("#errcntstdt").html("Enter Start date").hide();
+                g = 1;
+            }
+            if ($("#CNTENDDT").val() === '') {
+                $("#errcntendt").html("Enter End Date").show();
+                h = 0;
+            }
+            else {
+                $("#errcntendt").html("Enter End date").hide();
+                h = 1;
+            }
+            totval = a + b + c + d + e + f + g + h;
+    }
+
+    var SelectVendorKey;
+    $("#VENDID").change(function () {
+        SelectVendorKey = $("#VENDID").val().trim();
+        if (SelectVendorKey === "") {
+
+        }
+        else {
+            getVendorTable();
+
+        }
+    });
+    function getVendorTable() {
+
+        $.ajax({
+            url: "/Contract/VendorGet",
+            type: 'Get',
+            data: { venid: SelectVendorKey },
+            success: function (data) {
+                $("#VENDNAME").val(data.VENDID);
+                $("#PHNO").val(data.VENDPHNO);
+                $("#EMAIL").val(data.VENDEMAIL);
+                $("#VENDADDR").val(data.VENDADDR);
+            },
+            error: function () {
+                alert("something seems wrong");
+            }
+        });
+    }
+    function adddata() {
+        $.ajax({
+            type: "POST",
+            url: "/Contract/CntIns",
+            data: $('#contract').serialize(),
+            dataType: 'text',
+            async: true,
+            success: function (message) {
+                alert(message);
+                //window.location.href = "/Contract/ContractGet?cntnumber=" + message.substring(1, 14);
+                //$("#CNTNUMBER").val(message.substring(1, 14));
+                window.location.href = "/Contract/CntDocLoad?cntno=" + message.substring(1, 14);
+                $("#addbtn").html("Save");
+                initdatepicker();
+            },
+            error: function () {
+                alert("Something went wrong");
+            }
+        });
+    }
+</script>

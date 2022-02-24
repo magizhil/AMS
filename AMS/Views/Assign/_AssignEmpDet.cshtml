@@ -1,0 +1,40 @@
+﻿@model IList<AMS.Models.AstAsgMultiview>
+<div class="w3-responsive">
+    <table class="w3-table-all" border="1">
+        <thead>
+            <tr class="w3-teal">
+                <th>View</th>
+                <th>Employee Code</th>
+                <th>Name</th>
+                <th>Designation</th>
+                <th>Department</th>
+                <th>Location</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in ViewBag.AssignDet3)
+            {
+                <tr>
+                    <td>
+                        @Html.ActionLink("View", "View", new { catcode = item.ID })
+                    </td>
+                    <td>
+                        @item.EMPCODE
+                    </td>
+                    <td>
+                        @item.EMPNAME
+                    </td>
+                    <td>
+                        @item.DESG
+                    </td>
+                    <td>
+                        @item.DEPT
+                    </td>
+                    <td>
+                        @item.EMPLOC
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

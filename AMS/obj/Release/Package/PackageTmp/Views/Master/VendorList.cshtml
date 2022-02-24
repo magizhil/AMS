@@ -1,0 +1,110 @@
+﻿@model IEnumerable<AMS.Models.MsVendor>
+
+@{
+    ViewBag.Title = "Vendor List";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+@*<script src="~/Scripts/jquery-1.8.0.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>*@
+
+<div class="w3-container">
+    <div class="w3-row">
+      
+        <div class="w3-border">
+            
+                <div class="w3-container">
+                    <header class="w3-container w3-card-4  w3-teal" >
+                        <a href="~/Master/VendorDet" class="w3-button w3-xlarge w3-circle w3-theme-action w3-right w3-light-green" style="top:120px;right:16px;position:fixed">+</a>
+                        <h3>Vendor Details</h3>
+                    </header>        
+                    <table class="w3-table w3-striped w3-border">
+                        <tr class="w3-blue">
+                            <th>
+                                Vendor Number
+                            </th>
+                            <th>
+                                Vendor Name
+                            </th>
+                            <th>
+                                Phone Number
+                            </th>
+                            <th>
+                                Email
+                            </th>
+                            <th>
+                                Status
+                            </th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.VENDID)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.VENDNAME)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.VENDPHNO)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.VENDEMAIL)
+                                </td>
+                                <td>
+                                    @switch (@item.INACTIVE)
+                                    {
+                                        case 0:
+                                            <label>Active</label>
+                                            break;
+                                        case 1:
+                                            <label>Inactive</label>
+                                            break;
+                                        default:
+                                            <label>Not Set</label>
+                                            break;
+                                    }
+
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Edit", "VendorGet", new { vendcode = item.VENDID })
+                                </td>
+                                <td>
+                                    <a class="a_delete_vend" id="@(item.VENDID)">Delete</a>
+                                </td>
+                            </tr>
+                        }
+
+                    </table>
+                </div>  
+        </div>
+      
+    </div>
+</div>
+
+<script>
+    $(".a_delete_vend").click(function () {
+
+        var identities = (this).id;
+
+        $.ajax({
+            type: 'POST',
+            contentType: "application/json; charset=utf-8",
+            url: '/Master/Deletevend',
+            data: JSON.stringify({ "id": identities }),
+            contentType: "application/json; charset=utf-8",
+            success: function (message) {
+                alert(message);
+                location.reload();
+                //$("#vendor_det").html(data);
+            },
+            fail: function (message) {
+
+            }
+        });
+    });
+
+
+</script>

@@ -1,0 +1,236 @@
+﻿@model AMS.Models.AstInvoice
+
+@{
+    ViewBag.Title = "InvUpload";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="w3-container">
+    <div class="w3-container">
+        <div class="w3-col l4"><p></p></div>
+        <div class="w3-col l4">
+            <form id="astinv">
+                <header class="w3-container w3-card-4 w3-theme w3-teal">
+                    <h3>Invoice Upload</h3>
+                </header>
+                <div class="w3-col l12">
+                    <p>
+                        <label class="w3-text-teal">Asset Type</label>
+                        <br /><br />
+                        @Html.RadioButtonFor(m => m.ASSTTYPE, "1", new { @checked = "", @id = "HWAST" }) &nbsp;&nbsp; <label>Hardware </label>&nbsp;&nbsp;
+
+                        @Html.RadioButtonFor(m => m.ASSTTYPE, "2", new { @id = "SWAST" }) &nbsp;&nbsp; <label>Software</label>
+                    </p>
+                </div>
+                <div class="w3-col l12">
+                    <p>
+                        <label class="w3-text-teal">Asset Tag</label>
+                    </p>
+                    <p>
+                        @Html.TextBoxFor(m => m.ASSETTAG, new { @class = "w3-input", @id = "ASSETTAG" })
+                    </p>
+                </div>
+                <div class="w3-col l12">
+                    <p>
+                        <label class="w3-text-teal">Invoice Number</label>
+                    </p>
+                    <p>
+                        @Html.TextBoxFor(m => m.INVOICENUMBER, new { @class = "w3-input", @id = "INVOICENUMBER", @style = "background-color:#e6e6e6;", @readonly = "true" })
+                        <span id="errinvno" class="w3-text-red"></span>
+                    </p>
+                </div>
+                <div class="w3-col l12">
+                    <p>
+                        <label class="w3-text-teal">Upload Path</label>
+                    </p>
+                    <p>
+                        @Html.TextBoxFor(m => m.INVPATH, new { @class = "w3-input", @id = "INVPATH", @style = "background-color:#e6e6e6;", @readonly = "true" })
+                        <input type="file" id="UploadPdf" />
+                        <span id="errinvpath" class="w3-text-red"></span>
+                    </p>
+                </div>
+                <div class="w3-col l12">
+                    <p class="w3-right">
+                        <button type="button" class="w3-button w3-blue w3-round w3-hover-teal" id="addbtn">Add</button>
+                    </p>
+                </div>
+            </form>
+        </div>
+        <div class="w3-col l4"><p></p></div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        var tot;
+        $("#HWAST").change(function () {
+            $("#ASSETTAG").val("");
+            $("#INVOICENUMBER").val("");
+            $("#INVPATH").val("");
+        });
+        $("#SWAST").change(function () {
+            $("#ASSETTAG").val("");
+            $("#INVOICENUMBER").val("");
+            $("#INVPATH").val("");
+        });
+        $("#ASSETTAG").autocomplete({
+            source: function (request, response) {
+                var ischecked = $("#HWAST").prop("checked");
+                var urlval;
+                if (ischecked == true) {
+                    urlval = "/Master/GetHwAstDet";
+                }
+                else {
+                    urlval = "/Master/GetSwAstDet";
+                }
+                $.ajax({
+                    url: urlval,
+                    type: "POST",
+                    dataType: "json",
+                    data: { invvalue: request.term },
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return { label: item.ASSETTAG + ' - ' + item.INVOICENUMBER + ' - ' + item.SLNO, value: item.ASSETTAG };
+                        }).slice(0, 5))
+
+                    }
+                })
+            },
+            messages: {
+                noResults: "",
+                results: function (count) {
+                    return count + (count > 1 ? ' results' : ' result ') + ' found';
+                }
+            }
+        });
+
+
+        var SelectAssetKey;
+        $("#ASSETTAG").change(function () {
+            SelectAssetKey = $("#ASSETTAG").val().trim();
+            if (SelectAssetKey === "") {
+
+            }
+            else {
+                getAssetTable();
+
+            }
+        });
+        function getAssetTable() {
+            var ischecked1 = $("#HWAST").prop("checked");
+            var urlvalget;
+            if (ischecked1 == true) {
+                urlvalget = "/Master/HwAstGet";
+            }
+            else {
+                urlvalget = "/Master/SwAstGet";
+            }
+            $.ajax({
+                url: urlvalget,
+                type: 'Get',
+                data: { asttag: SelectAssetKey },
+                success: function (data) {
+                    $("#INVOICENUMBER").val(data);
+                },
+                error: function () {
+                    alert("something seems wrong");
+                }
+            });
+        }
+    });
+    $("#UploadPdf").change(function () {
+        if ($("#ASSETTAG").val().trim() !== "") {
+            var pdfvalue = $("#ASSETTAG").val().trim();
+            var data = new FormData();
+            var files = $("#UploadPdf").get(0).files;
+            var ext = $("#UploadPdf").val().split('.').pop().toLowerCase();
+            var filesize = ($("#UploadPdf")[0].files[0].size / 1024);
+            var filenameval = pdfvalue + '.' + ext;
+            if (ext === "pdf") {
+                if (filesize < 2048) {
+                    if (files.length > 0) {
+                        data.append("MyImages", files[0], filenameval);
+                        //data.append(files[0], filenameval);
+                        //data.append("filenam", empcodevalue);
+                    }
+
+                    $.ajax({
+                        url: "/Master/UploadFile",
+                        type: "POST",
+                        processData: false,
+                        contentType: false,
+                        data: data,
+                        success: function (data) {
+                            //code after success
+                            $("#INVPATH").val(data);
+                        },
+                        error: function (er) {
+                            alert(er);
+                        }
+
+                    });
+                }
+                else {
+                    alert(filesize);
+                    alert("File size is greater than 2 MB");
+                }
+            }
+            else {
+                alert("PDF only Allowed");
+            }
+        }
+        else {
+            alert("Kindly fill the Asset Tag before choose the pdf")
+        }
+    });
+
+    function addfn() {
+        $.ajax({
+            type: "POST",
+            url: "/Master/InvIns",
+            data: $('#astinv').serialize(),
+            dataType: 'text',
+            async: true,
+            success: function (message) {
+                alert(message);
+                $("#ASSETTAG").val("");
+                $("#INVOICENUMBER").val("");
+                $("#INVPATH").val("");
+            },
+            error: function () {
+                alert("Something went wrong");
+            }
+        });
+    }
+    $("#addbtn").click(function (event) {
+
+        reqval();
+        if (tot === 2) {
+            addfn();
+        }
+        else {
+
+        }
+    });
+    function reqval() {
+        var a, b;
+        if ($("#INVOICENUMBER").val() === '') {
+            $("#errinvno").html("Invoice Number Required").show();
+            a = 0;
+        }
+        else {
+            $("#errinvno").html("Invoice Number Required").hide();
+            a = 1;
+        }
+        if ($("#INVPATH").val() === '') {
+            $("#errinvpath").html("Upload File Missing").show();
+            b = 0;
+        }
+        else {
+            $("#errinvpath").html("Upload File Missing").hide();
+            b = 1;
+        }
+        tot = a + b;
+    }
+
+</script>

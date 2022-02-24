@@ -1,0 +1,432 @@
+﻿@model AMS.Models.SwAsset
+
+@{
+    ViewBag.Title = "Software Details";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+@*<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery-1.8.0.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script type="text/javascript" src="~/Js/Validation.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>*@
+<div class="w3-container">
+    <header class="w3-container w3-card-4 w3-theme w3-teal" >
+        <h3>Software Details</h3>
+    </header>
+    <div class="w3-container  w3-border">
+        <form id="software">
+            <div class="w3-row-padding">
+                <div class="w3-col l3">
+                    <p>
+                        <label class="w3-text-teal">Asset Tag</label>
+                    </p>
+                    <p>
+                        @Html.TextBoxFor(m => m.ASSETTAG, new { @id = "ASSETTAG", @style = "width:200px;text-transform:uppercase;border:0px 0px 1px 0px;"})
+                        &nbsp;&nbsp;
+                        <a onclick="FindSw();"><img src="~/Images/search.png" width="20" height="20" /></a>
+                        &nbsp;&nbsp;
+                        <a onclick="NewClick();"><img src="~/Images/new.png" width="20" height="20" /></a>
+                    </p>
+                    <p>
+                        <label class="w3-text-teal">Category Type</label>
+                        @Html.DropDownListFor(m => m.CATGNAME, new SelectList(ViewBag.swcatg, "CATGNAME", "CATGDESC"), "--- Select ---", new { @class = "w3-input", @id = "CATGNAME" })
+                        <span id="catgtype" class="w3-text-red"></span>
+                    </p>
+                    <p>
+                        <label class="w3-text-teal">Brand</label>
+                        @Html.TextBoxFor(m => m.BRAND, new { @class = "w3-input", @id = "BRAND" })
+                        <span id="swbrand" class="w3-text-red"></span>
+                    </p>
+                    <p>
+                        <label class="w3-text-teal">Edition</label>
+                        @Html.TextBoxFor(m => m.MDLNAME, new { @class = "w3-input", @id = "MDLNAME" })
+                        <span id="swmdlname" class="w3-text-red"></span>
+                    </p>
+                    <p style="height:63px">
+                        <label class="w3-text-teal">Version</label>
+                        @Html.TextBoxFor(m => m.MDLNO, new { @class = "w3-input", @id = "MDLNO" })
+                        <span id="swmdlno" class="w3-text-red"></span>
+                    </p>
+                </div>
+                <div class="w3-col l3 ">
+                    <p style="height:63px">
+                        <label class="w3-text-teal">License Type</label>
+                        <br />
+                        @Html.RadioButtonFor(m => m.LICTYPE, "1", new { @checked = "", @id = "LICTYPE1" }) &nbsp;&nbsp; <label>Perpetual</label>&nbsp;&nbsp;
+
+                        @Html.RadioButtonFor(m => m.LICTYPE, "2", new { @id = "LICTYPE2" }) &nbsp;&nbsp; <label>Renewal</label>
+                    </p>
+                    <p>
+                        <label class="w3-text-teal">Serial Number</label>
+                        @Html.TextBoxFor(m => m.SLNO, new { @class = "w3-input", @id = "SLNO" })
+                        <span id="swslno" class="w3-text-red"></span>
+                    </p>
+                    <p>
+                        <label class="w3-text-teal">User License</label>
+                        @Html.TextBoxFor(m => m.USRLIC, new { @class = "w3-input", @id = "USRLIC", @type = "number" })
+                        <span id="swusrlic" class="w3-text-red"></span>
+                    </p>
+                    <p>
+                        <label class="w3-text-teal">Machine License</label>
+                        @Html.TextBoxFor(m => m.MACLIC, new { @class = "w3-input", @id = "MACLIC", @type = "number" })
+                        <span id="swmaclic" class="w3-text-red"></span>
+                    </p>
+                    <p class="w3-right">
+                        <button type="button" class="w3-button w3-blue w3-round w3-hover-teal" id="addbtn">Submit</button>
+                    </p>
+                </div>
+                <div class="w3-col l3 ">
+                    <p style="height:63px">
+                        <label class="w3-text-teal">Vendor</label>
+                        @Html.DropDownListFor(m => m.VENDID, new SelectList(ViewBag.vendor, "VENDID", "VENDNAME"), "--- Select ---", new { @class = "w3-input", @id = "VENDID" })
+                        <span id="swvendor" class="w3-text-red"></span>
+                    </p>
+                    <p>
+                        <label class="w3-text-teal">Invoice Number</label>
+                        @Html.TextBoxFor(m => m.INVOICENUMBER, new { @class = "w3-input", @id = "INVOICENUMBER" })
+                        <span id="swinvno" class="w3-text-red"></span>
+                    </p>
+                    <p>
+                        <label class="w3-text-teal">Asset Number</label>
+                        @Html.TextBoxFor(m => m.ASSTNO, new { @class = "w3-input", @id = "ASSTNO" })
+                        <span id="swastno" class="w3-text-red"></span>
+                    </p>
+                    <p>
+                        <label class="w3-text-teal">Asset Value</label>
+                        @Html.TextBoxFor(m => m.ASSETVAL, new { @class = "w3-input", @id = "ASSETVAL", @type = "number" })
+                        <span id="swastval" class="w3-text-red"></span>
+                    </p>
+
+                </div>
+                <div class="w3-col l3 ">
+
+                    <p style="height:63px">
+                        <label class="w3-text-teal">Purchase Date</label>
+                        @Html.TextBoxFor(m => m.PODATE, new { @class = "w3-input datepicker", @id = "PODATE" })
+                        <span id="swpodate" class="w3-text-red"></span>
+                    </p>
+                    <p>
+                        <label class="w3-text-teal">Activated Date</label>
+                        @Html.TextBoxFor(m => m.ACTDATE, new { @class = "w3-input datepicker", @id = "ACTDATE" })
+                        <span id="swactdate" class="w3-text-red"></span>
+                    </p>
+                    <p>
+                        <label class="w3-text-teal">Renewal Period (in Months)</label>
+                        @Html.TextBox("RENEWALPRD", "", new { @class = "w3-input", @id = "RENEWALPRD", @type = "number" })
+                        <span id="swrenewdate" class="w3-text-red"></span>
+                    </p>
+                    <p>
+                        <label class="w3-text-teal">Renewal Date</label>
+                        @Html.TextBoxFor(m => m.RENEWALDATE, new { @class = "w3-input datepicker", @id = "RENEWALDATE" })
+                        <span id="swrenewdate" class="w3-text-red"></span>
+                    </p>
+                    <p>
+                        <label class="w3-text-teal">Last Modified At</label>
+                        @Html.TextBoxFor(m => m.DATELASTMN, new { @class = "w3-input", @id = "DATELASTMN", @style = "background-color:#e6e6e6;", @readonly = "true" })
+                    </p>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+
+    $(document).ready(function () {
+        var totval = 0;
+        $("#ASSETTAG").change(function () {
+            selectSoftCode = $("#ASSETTAG").val().trim();
+            getSoftwareTable();
+        });
+        $("#CATGNAME").change(function () {
+            if ($("#CATGNAME").val() === '') {
+                $("#catgtype").html("Select Category Type").show();
+            }
+            else {
+                $("#catgtype").html("Select Category Type").hide();
+            }
+        });
+        $("#BRAND").change(function () {
+
+            if ($("#BRAND").val() === '') {
+
+                $("#swbrand").html("Brand name required").show();
+            }
+            else {
+                $("#swbrand").html("Brand name required").hide();
+            }
+        });
+        $("#MDLNAME").change(function () {
+            if ($("#MDLNAME").val() === '') {
+                $("#swmdlname").html("Model name required").show();
+            }
+            else {
+                $("#swmdlname").html("Model name required").hide();
+            }
+        });
+        $("#SLNO").change(function () {
+            if ($("#SLNO").val() === '') {
+                $("#swslno").html("Serial no required").show();
+            }
+            else {
+                $("#swslno").html("Serial no required").hide();
+                selectSlnoCode = $("#SLNO").val().trim();
+                getSlnoInfo();
+            }
+        });
+
+        $("#USRLIC").change(function () {
+            if ($("#USRLIC").val() === '') {
+                $("#swusrlic").html("User license required").show();
+            }
+            else {
+                $("#swusrlic").html("User license required").hide();
+            }
+        });
+        $("#MACLIC").change(function () {
+            if ($("#MACLIC").val() === '') {
+                $("#swmaclic").html("Machine License required").show();
+            }
+            else {
+                $("#swmaclic").html("Machine License required").hide();
+            }
+        });
+        $("#VENDID").change(function () {
+            if ($("#VENDID").val() === '') {
+                $("#swvendor").html("Vendor Name required").show();
+            }
+            else {
+                $("#swvendor").html("Vendor Name required").hide();
+            }
+        });
+        $("#INVOICENUMBER").change(function () {
+            if ($("#INVOICENUMBER").val() === '') {
+                $("#swinvno").html("Invoice Number required").show();
+            }
+            else {
+                $("#swinvno").html("Invoice Number required").hide();
+            }
+        });
+        $("#ASSETVAL").change(function () {
+            if ($("#ASSETVAL").val() === '') {
+                $("#swastval").html("Asset Value required").show();
+            }
+            else {
+                $("#swastval").html("Asset Value required").hide();
+            }
+        });
+        function reqval() {
+            var a, b, c, d, e, f, g, h, i;
+            if ($("#CATGNAME").val() === '') {
+                $("#catgtype").html("Select Category Type").show();
+                a = 0;
+            }
+            else {
+                $("#catgtype").html("Select Category Type").hide();
+                a = 1;
+            }
+            if ($("#BRAND").val() === '') {
+                $("#swbrand").html("Brand name required").show();
+                b = 0;
+            }
+            else {
+                $("#swbrand").html("Brand name required").hide();
+                b = 1;
+            }
+            if ($("#MDLNAME").val() === '') {
+                $("#swmdlname").html("Model name required").show();
+                c = 0;
+            }
+            else {
+                $("#swmdlname").html("Model name required").hide();
+                c = 1;
+            }
+
+            if ($("#SLNO").val() === '') {
+                $("#swslno").html("Serial no required").show();
+                d = 0;
+            }
+            else {
+                $("#swslno").html("Serial no required").hide();
+                //selectSlnoCode = $("#SLNO").val().trim();
+                //getSlnoInfo();
+                d = 1;
+            }
+            if ($("#USRLIC").val() === '') {
+                $("#swusrlic").html("User license required").show();
+                e = 0;
+            }
+            else {
+                $("#swusrlic").html("User license required").hide();
+                e = 1;
+            }
+            if ($("#MACLIC").val() === '') {
+                $("#swmaclic").html("Machine License required").show();
+                f = 0;
+            }
+            else {
+                $("#swmaclic").html("Machine License required").hide();
+                f = 1;
+            }
+            if ($("#VENDID").val() === '') {
+                $("#swvendor").html("Vendor Name required").show();
+                g = 0;
+            }
+            else {
+                $("#swvendor").html("Vendor Name required").hide();
+                g = 1;
+            }
+            if ($("#INVOICENUMBER").val() === '') {
+                $("#swinvno").html("Invoice Number required").show();
+                h = 0;
+            }
+            else {
+                $("#swinvno").html("Invoice Number required").hide();
+                h = 1;
+            }
+
+
+            if ($("#ASSETVAL").val() === '') {
+                $("#swastval").html("Asset Value required").show();
+                i = 0;
+            }
+            else {
+                $("#swastval").html("Asset Value required").hide();
+                i = 1;
+            }
+
+            totval = a + b + c + d + e + f + g + h + i;
+
+        }
+
+        $("#addbtn").click(function (event) {
+
+            reqval();
+
+            if (totval === 9) {
+                addfn();
+            }
+            else {
+
+            }
+        });
+        function addfn() {
+            $.ajax({
+                type: "POST",
+                url: "/Software/SwAssetIns",
+                data: $('#software').serialize(),
+                dataType: 'text',
+                async: true,
+                success: function (message) {
+                    alert(message);
+                    $("#ASSETTAG").val(message.substring(1, 13));
+                    $("#addbtn").html("Save");
+                },
+                error: function () {
+                    alert("Something went wrong");
+                }
+            });
+        }
+    });
+    function getSoftwareTable() {
+
+        $.ajax({
+            url: "/Software/SoftwareGet",
+            type: 'Get',
+            data: { softcode: selectSoftCode },
+            success: function (data) {
+
+                $("#overright").empty().append(data);
+                if ($("#DATELASTMN").val().trim() !== "") {
+                    $("#addbtn").html("Save");
+                }
+                else {
+
+                    $("#ASSETTAG").val(selectSoftCode);
+                    $("#addbtn").html("Add");
+                    
+                }
+                //$(function () {
+                //    $(".datepicker").datepicker({
+                //        dateFormat: 'dd-mm-yy',
+                //        changeMonth: true,
+                //        changeYear: true
+                //    });
+                //});
+                //$("#ACTDATE").html(data).find(".datepicker").datepicker({
+                //    inline: true
+                //});
+            },
+            error: function () {
+                alert("something seems wrong");
+                $("#addbtn").html("Add");
+            }
+        });
+    }
+    function getSlnoInfo() {
+
+        $.ajax({
+            url: "/Software/SlnoVal",
+            type: 'Get',
+            data: { slno: selectSlnoCode },
+            dataType: 'JSON',
+            //async: true,
+            success: function (divis) {
+                //alert(divis);
+                if (divis === '')
+                { $("#swslno").html(divis).hide(); }
+                else
+                {
+                    $("#swslno").html(divis).show();
+                    $("#SLNO").val('');
+                }
+
+
+            },
+            error: function () {
+                $("#swslno").html(divis);
+            }
+        });
+    }
+    function NewClick() {
+        $("#ASSETTAG").val('');
+        $("#CATGNAME").val('');
+        $("#BRAND").val('');
+        $("#MDLNAME").val('');
+        $("#MDLNO").val('');
+        $("#LICTYPE1").attr('checked', true);
+        $("#SLNO").val('');
+        $("#MACLIC").val('');
+        $("#USRLIC").val('');
+        $("#VENDID").val('');
+        $("#INVOICENUMBER").val('');
+        $("#ASSTNO").val('');
+        $("#ASSETVAL").val('');
+        $("#PODATE").val('');
+        $("#ACTDATE").val('');
+        $("#RENEWALDATE").val('');
+        $("#RENEWALPRD").val('');
+        $("#DATELASTMN").val('');
+    }
+    $(function () {
+        $(".datepicker").datepicker({
+            dateFormat: 'dd-mm-yy',
+            changeMonth: true,
+            changeYear: true
+        });
+    });
+    $(function () {
+        $("#RENEWALPRD").change(function (date) {
+            var date1 = $('#ACTDATE').datepicker('getDate');
+            var renew = parseInt($("#RENEWALPRD").val());
+            date1.setMonth(date1.getMonth() + renew);
+            $('#RENEWALDATE').datepicker('setDate', date1);
+            //sets minDate to dt1 date + 1
+            $('#RENEWALDATE').datepicker('option', date1);
+        });
+    });
+</script>

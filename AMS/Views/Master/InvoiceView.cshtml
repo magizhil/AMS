@@ -1,0 +1,91 @@
+﻿@model IEnumerable<AMS.Models.AstInvoice>
+@{
+    ViewBag.Title = "InvoiceView";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="w3-container">
+    <header class="w3-container w3-card-4  w3-teal">
+        <a href="~/Master/InvUpload" class="w3-button w3-xlarge w3-circle w3-theme-action w3-right w3-light-green" style="top:97px;right:18px;position:fixed">+</a>
+        <h3>Invoice Information</h3>
+    </header>
+    <div class="w3-row">
+        <div class="w3-border">
+            <div class="w3-container w3-responsive">
+                <table class="w3-table w3-striped w3-border" id="InvoiceView">
+                    <thead>
+                        <tr class="w3-blue">
+                            <th>View</th>
+                            @*<th>View</th>*@
+                            <th>
+                                Asset Tag
+                            </th>
+                            <th>
+                                Invoice Number
+                            </th>
+                            <th>
+                                Type
+                            </th>
+                            <th>
+                                Uploaded By
+                            </th>
+                            <th>
+                                Date
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <a href="~/Images/Invoices/@item.INVPATH" target="_blank">VIEW</a>
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ASSETTAG)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.INVOICENUMBER)
+                                </td>
+                                <th>
+                                    @switch (@item.ASSTTYPE)
+                                    {
+                                        case 1:
+                                            <label>Hardware</label>
+                                            break;
+                                        case 2:
+                                            <label>Software</label>
+                                            break;
+                                        default:
+                                            <label>Not Set</label>
+                                            break;
+                                    }
+                                </th>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.AUDTUSER)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DATELASTMN)
+                                </td>
+                                
+                            </tr>
+                        }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+<script>
+    $(document).ready(function () {
+        $("#InvoiceView").dataTable({
+            "scrollY": 300,
+            "scrollX": true,
+            "autoWidth": false,
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ]
+        });
+    });
+</script>

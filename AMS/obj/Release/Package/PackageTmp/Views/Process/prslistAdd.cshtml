@@ -1,0 +1,97 @@
+﻿@model AMS.Models.ProcessList
+
+@{
+    ViewBag.Title = "Process List";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+@*<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery-1.8.0.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script type="text/javascript" src="~/Js/Validation.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>*@
+
+
+<div class="w3-container">
+    <header class="w3-container w3-card-4 w3-theme w3-teal">
+        <a href="~/Process/prslist" class="w3-button w3-xlarge w3-right w3-teal" style="top:97px;right:18px;position:fixed">Back to List</a>
+        <h3>Process List</h3>
+    </header>
+    <div class="w3-container  w3-border">
+        <div class="w3-row-padding">
+            <div class="w3-col l4"><p></p></div>
+            <div class="w3-col l4">
+                <form id="prslstadd">
+                    <p><label class="w3-text-teal">List Name</label></p>
+                    <p>
+                        @Html.TextBoxFor(m => m.CHKLISTTIT, new { @id = "CHKLISTTIT", @class = "w3-input" })
+                    </p>
+                    <p>
+                        <label class="w3-text-teal">Group Name</label>                   
+                        @Html.DropDownListFor(model => model.CHKGRPID, new SelectList(ViewBag.grpdet, "CHKGRPID", "CHKGRPNAME"), "--- Select ---", new { @class = "w3-input", @id = "CHKGRPID" })
+                    </p>
+                    <p>
+                        <label class="w3-text-teal">List Description</label>
+                        @Html.TextAreaFor(m => m.CHKLISTDESC, new { @class = "w3-input", @style = "height:117px;", @id = "CHKGRPDESC" })
+                    </p>
+                    <p>
+                        <label class="w3-text-teal">Sort Order</label>
+                        @Html.TextBoxFor(m=>m.SORTORD,new {@id= "SORTORD" ,@class="w3-input" , @type="number" })
+                    </p>
+                    <p>
+                        <button type="button" class="w3-button w3-blue w3-round w3-hover-teal" id="addbtn">Submit</button>
+                    </p>
+                </form>
+            </div>
+            <div class="w3-col l4"><p></p></div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        //$("#CHKLISTTIT").change(function () {
+        //    selectlistCode = $("#CHKLISTTIT").val().trim();
+        //    getListTable();
+        //});
+        $("#addbtn").click(function () {
+            addfn();
+        });
+        function addfn() {
+            $.ajax({
+                type: "POST",
+                url: "/Process/prslistIns",
+                data: $('#prslstadd').serialize(),
+                dataType: 'text',
+                async: true,
+                success: function (message) {
+                    alert(message);
+                    $("#addbtn").html("Save");
+                    
+
+                },
+                error: function () {
+                    alert("Something went wrong");
+                }
+            });
+        }
+    });
+    function getListTable()
+    {
+        $.ajax({
+            url: "/Process/prslistGet",
+            type: 'Get',
+            data: { listname: selectlistCode },
+            success: function (data) {
+                $("#overright").empty().append(data);
+                $("#CHKLISTTIT").val(selectlistCode);
+            },
+            error: function () {
+                alert("something seems wrong");
+                $("#addbtn").html("Add");
+            }
+        });
+    }
+</script>

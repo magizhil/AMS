@@ -1,0 +1,78 @@
+﻿@model IEnumerable<AMS.Models.PrsUsersug>
+
+@{
+    ViewBag.Title = "SuggBoxList";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+@*<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>*@
+<div class="w3-container">
+    <header class="w3-container w3-card-4 w3-theme w3-teal">
+        <h3>Suggestion List</h3>
+    </header>
+</div>
+<div class="w3-border">
+
+    <div class="w3-container w3-responsive">
+
+        <table class="w3-table w3-striped w3-border">
+            <thead>
+                <tr class="w3-blue">
+                    <th>
+                        User
+                    </th>
+                    <th>
+                        Suggestion
+                    </th>
+                    <th>
+                        Date
+                    </th>
+                    <th></th>
+
+                </tr>
+            </thead>
+            @foreach (var item in Model)
+            {
+                <tbody>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.USERNAME)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SUGGESTION)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DATELASTMN)
+                        </td>
+                        <td>
+                            <button class="removedata" id="@(item.SUGGID)" style="background-color:blue;color:white">Remove</button>
+                        </td>
+                        
+                    </tr>
+                </tbody>
+            }
+
+        </table>
+    </div>
+</div>
+<script>
+    $(".removedata").click(function () {
+
+        var identities = (this).id;
+
+        $.ajax({
+            type: 'POST',
+            contentType: "application/json; charset=utf-8",
+            url: '/Process/SuggBoxRmv',
+            data: JSON.stringify({ "id": identities }),
+            contentType: "application/json; charset=utf-8",
+            success: function (message) {
+                alert(message);
+                location.reload();
+                //$("#vendor_det").html(data);
+            },
+            fail: function (message) {
+
+            }
+        });
+    });
+</script>
